@@ -1,4 +1,4 @@
-package ru.bellintegrator.practice.view;
+package ru.bellintegrator.practice.old.view;
 
 import io.swagger.annotations.ApiModelProperty;
 
