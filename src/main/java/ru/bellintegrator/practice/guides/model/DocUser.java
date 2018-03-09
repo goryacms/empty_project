@@ -5,22 +5,24 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import ru.bellintegrator.practice.users.model.Users;
+import ru.bellintegrator.practice.users.model.User;
 /**
  * Этото класс предназначен для доступа к полям doc_code, doc_date, doc_number при реализации связи М-М
  */
 @Entity
 @Table(name = "Docs")
-public class DocsUsers {
+public class DocUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -32,11 +34,13 @@ public class DocsUsers {
     @Version
     private Integer version;
 
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private Users users;
+    private User users;
 
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "code")
-    private Docs docs;
+    private Doc docs;
 
     @Column(name = "doc_code")
     private Integer docCode;
@@ -46,10 +50,10 @@ public class DocsUsers {
     private Date docDate;
 
     @Column(name = "doc_number")
-    private Integer docNumber;
+    private Long docNumber;
 
 
-    public DocsUsers() {
+    public DocUser() {
     }
 
 
@@ -62,19 +66,19 @@ public class DocsUsers {
         this.id = id;
     }
 
-    public Users getUsers() {
+    public User getUsers() {
         return users;
     }
 
-    public void setUsers(Users users) {
+    public void setUsers(User users) {
         this.users = users;
     }
 
-    public Docs getDocs() {
+    public Doc getDocs() {
         return docs;
     }
 
-    public void setDocs(Docs docs) {
+    public void setDocs(Doc docs) {
         this.docs = docs;
     }
 
@@ -94,11 +98,11 @@ public class DocsUsers {
         this.docDate = docDate;
     }
 
-    public Integer getDocNumber() {
+    public Long getDocNumber() {
         return docNumber;
     }
 
-    public void setDocNumber(Integer docNumber) {
+    public void setDocNumber(Long docNumber) {
         this.docNumber = docNumber;
     }
 

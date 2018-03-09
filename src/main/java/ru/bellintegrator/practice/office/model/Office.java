@@ -69,28 +69,6 @@ public class Office {
 
     }
 
-
-    // Надо ли это?
-    /*@Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("{id:");
-        builder.append(getId());
-        builder.append(";name:");
-        builder.append(getName());
-        builder.append(";fullName:");
-        builder.append(getFullName());
-        builder.append(";address:");
-        builder.append(getAddress());
-        builder.append(";phone:");
-        builder.append(getPhone());
-        builder.append(";isActive:");
-        builder.append(getActive());
-        builder.append("}");
-
-        return builder.toString();
-    }*/
-
     /**
      * Геттеры/сеттеры
      */

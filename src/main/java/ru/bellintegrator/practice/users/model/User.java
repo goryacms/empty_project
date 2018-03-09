@@ -5,13 +5,14 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import ru.bellintegrator.practice.guides.model.DocsUsers;
+import ru.bellintegrator.practice.guides.model.DocUser;
 import ru.bellintegrator.practice.guides.model.Citizenship;
+import ru.bellintegrator.practice.office.model.Office;
 
 
 @Entity
 @Table(name = "Users")
-public class Users {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -22,8 +23,6 @@ public class Users {
      */
     @Version
     private Integer version;
-
-
 
     /**
      * Иия
@@ -72,9 +71,11 @@ public class Users {
     private boolean isActive;
 
     @OneToMany(mappedBy = "docs", fetch = FetchType.LAZY)
-    @JoinColumn(name = "organization_id")
-    private Set<DocsUsers> docsUsers = new HashSet<DocsUsers>();
+    private Set<DocUser> docsUsers = new HashSet<DocUser>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "office_id")
+    private Office office;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "citizenship_id")
@@ -83,11 +84,9 @@ public class Users {
     /**
      * Конструктор для hibernate
      */
-    public Users() {
+    public User() {
 
     }
-
-
 
     public Long getId() {
         return id;
@@ -153,11 +152,11 @@ public class Users {
         isActive = active;
     }
 
-    public Set<DocsUsers> getDocsUsers() {
+    public Set<DocUser> getDocsUsers() {
         return docsUsers;
     }
 
-    public void setDocsUsers(Set<DocsUsers> docsUsers) {
+    public void setDocsUsers(Set<DocUser> docsUsers) {
         this.docsUsers = docsUsers;
     }
 

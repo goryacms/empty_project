@@ -1,8 +1,5 @@
 package ru.bellintegrator.practice.guides.model;
 
-
-//import ru.bellintegrator.practice.organization.model.Organization;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +13,7 @@ import javax.persistence.Version;
  */
 @Entity
 @Table(name = "Docs")
-public class Docs {
+public class Doc {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "code")
@@ -44,6 +41,6 @@ public class Docs {
         this.name = name;
     }
 
-    public Docs() {
+    public Doc() {
     }
 }

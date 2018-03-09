@@ -50,15 +50,19 @@ public class Application {
 
     @Bean
     public Docket postApi() {
-        return new Docket(DocumentationType.SWAGGER_2).groupName("persons").apiInfo(apiInfo()).
-                select().paths(regex("/person.*")).build();
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("persons")
+                .apiInfo(apiInfo())
+                .select()
+                .paths(regex("/person.*"))
+                .build();
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Spring REST Sample with Swagger")
                 .description("Spring REST Sample with Swagger")
-                .contact("https://github.com/azEsm/empty_project")
+                .contact("https://github.com/goryacms/empty_project")
                 .version("1.0")
                 .build();
     }

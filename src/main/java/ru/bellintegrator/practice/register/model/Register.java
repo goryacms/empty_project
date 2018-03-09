@@ -5,14 +5,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.persistence.Version;
 
 /**
  * Регистрация и авторизация
  */
-@Entity
-@Table(name = "Registers")
+@Entity(name = "Registers")
 public class Register {
     @Id
     @GeneratedValue
