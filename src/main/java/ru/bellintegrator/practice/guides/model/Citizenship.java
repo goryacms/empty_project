@@ -17,7 +17,7 @@ import javax.persistence.Version;
 public class Citizenship {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "citizenship_code")
+    @Column(name = "id")
     private Long id;
 
     /**

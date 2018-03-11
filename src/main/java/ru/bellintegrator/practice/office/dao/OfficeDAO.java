@@ -30,4 +30,18 @@ public interface OfficeDAO {
      * @param office
      */
     void save(Office office);
+
+    /**
+     * Обновить Office
+     *
+     * @param office
+     */
+    void update(Office office);
+
+    /**
+     * Удалить Office по id
+     *
+     * @param id
+     */
+    void delete(Long id);
 }

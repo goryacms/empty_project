@@ -119,4 +119,24 @@ public class Office {
     public void setActive(boolean active) {
         isActive = active;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("{id:");
+        builder.append(getId());
+        builder.append(";name:");
+        builder.append(getName());
+        builder.append(";address:");
+        builder.append(getAddress());
+        builder.append(";phone:");
+        builder.append(getPhone());
+        builder.append(";isActive:");
+        builder.append(getActive());
+        builder.append(";organization:");
+        builder.append(getOrganization());
+        builder.append("}");
+
+        return builder.toString();
+    }
 }

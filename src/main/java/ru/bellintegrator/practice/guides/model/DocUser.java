@@ -21,7 +21,7 @@ import ru.bellintegrator.practice.users.model.User;
  * Этото класс предназначен для доступа к полям doc_code, doc_date, doc_number при реализации связи М-М
  */
 @Entity
-@Table(name = "Docs")
+@Table(name = "Docs_Users")
 public class DocUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,17 +34,20 @@ public class DocUser {
     @Version
     private Integer version;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User users;
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "code")
-    private Doc docs;
+    @JoinColumn(name = "doc_code")
+    private Doc doc;
 
+
+/*
     @Column(name = "doc_code")
     private Integer docCode;
-
+*/
     @Column(name = "doc_date")
     @Temporal(TemporalType.DATE)
     private Date docDate;
@@ -66,22 +69,24 @@ public class DocUser {
         this.id = id;
     }
 
+
     public User getUsers() {
-        return users;
+        return user;
     }
 
     public void setUsers(User users) {
-        this.users = users;
+        this.user = users;
     }
 
     public Doc getDocs() {
-        return docs;
+        return doc;
     }
 
     public void setDocs(Doc docs) {
-        this.docs = docs;
+        this.doc = docs;
     }
 
+/*
     public Integer getDocCode() {
         return docCode;
     }
@@ -89,7 +94,7 @@ public class DocUser {
     public void setDocCode(Integer docCode) {
         this.docCode = docCode;
     }
-
+*/
     public Date getDocDate() {
         return docDate;
     }

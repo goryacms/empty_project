@@ -67,11 +67,24 @@ public class User {
      * Признак идентификации
      */
     @Basic(optional = false)
-    @Column(name = "is_active")
-    private boolean isActive;
+    @Column(name = "is_identified")
+    private boolean isIdentified;
 
-    @OneToMany(mappedBy = "docs", fetch = FetchType.LAZY)
-    private Set<DocUser> docsUsers = new HashSet<DocUser>();
+
+
+
+
+
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<DocUser> docUsers = new HashSet<DocUser>();
+
+
+
+
+
+
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "office_id")
@@ -87,6 +100,35 @@ public class User {
     public User() {
 
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("{id:");
+        builder.append(getId());
+        builder.append(";firstName:");
+        builder.append(getFirstName());
+        builder.append(";lastName:");
+        builder.append(getLastName());
+        builder.append(";middleName:");
+        builder.append(getMiddleName());
+        builder.append(";position:");
+        builder.append(getPosition());
+        builder.append(";phone:");
+        builder.append(getPhone());
+        builder.append(";age:");
+        builder.append(getAge());
+        builder.append(";isIdentified:");
+        builder.append(isIdentified());
+        builder.append(";office:");
+        builder.append(getOffice());
+        builder.append(";citizenship:");
+        builder.append(getCitizenship());
+        builder.append("}");
+
+        return builder.toString();
+    }
+
 
     public Long getId() {
         return id;
@@ -144,21 +186,42 @@ public class User {
         this.age = age;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public boolean isIdentified() {
+        return isIdentified;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setIdentified(boolean identified) {
+        isIdentified = identified;
     }
 
-    public Set<DocUser> getDocsUsers() {
-        return docsUsers;
+    public Office getOffice() {
+        return office;
     }
 
-    public void setDocsUsers(Set<DocUser> docsUsers) {
-        this.docsUsers = docsUsers;
+    public void setOffice(Office office) {
+        this.office = office;
     }
+
+
+
+
+
+    public void addDocUser(DocUser docUser) {
+        this.docUsers.add(docUser);
+    }
+
+    public Set<DocUser> getDocUsers() {
+        return docUsers;
+    }
+
+    public void setDocUsers(Set<DocUser> docUsers) {
+        this.docUsers = docUsers;
+    }
+
+
+
+
+
 
     public Citizenship getCitizenship() {
         return citizenship;

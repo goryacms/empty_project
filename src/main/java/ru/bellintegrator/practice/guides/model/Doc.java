@@ -1,15 +1,11 @@
 package ru.bellintegrator.practice.guides.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Version;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * Виды документов. Нужна для реализации связи М-М с Users
+ * Виды документов. Нужна для реализации связи М-М с users
  */
 @Entity
 @Table(name = "Docs")
@@ -24,6 +20,31 @@ public class Doc {
 
     @Column(name = "name")
     private String name;
+
+
+
+
+
+
+    @OneToMany(mappedBy = "doc", fetch = FetchType.LAZY)
+    private Set<DocUser> docUsers = new HashSet<DocUser>();
+
+    public Set<DocUser> getDocUsers() {
+        return docUsers;
+    }
+
+    public void setDocUsers(Set<DocUser> docUsers) {
+        this.docUsers = docUsers;
+    }
+
+    public void addDocUser(DocUser docUser) {
+        this.docUsers.add(docUser);
+    }
+
+
+
+
+
 
     public Integer getId() {
         return id;

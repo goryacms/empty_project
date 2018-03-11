@@ -47,14 +47,14 @@ public class Organization {
      */
     @Basic(optional = false)
     @Column(name = "inn")
-    private int inn;
+    private Long inn;
 
     /**
      * КПП
      */
     @Basic(optional = false)
     @Column(name = "kpp")
-    private int kpp;
+    private Long kpp;
 
     /**
      * Адрес
@@ -135,19 +135,19 @@ public class Organization {
         this.fullName = fullName;
     }
 
-    public int getInn() {
+    public Long getInn() {
         return inn;
     }
 
-    public void setInn(int inn) {
+    public void setInn(Long inn) {
         this.inn = inn;
     }
 
-    public int getKpp() {
+    public Long getKpp() {
         return kpp;
     }
 
-    public void setKpp(int kpp) {
+    public void setKpp(Long kpp) {
         this.kpp = kpp;
     }
 
