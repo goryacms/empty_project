@@ -10,6 +10,10 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
+import ru.bellintegrator.practice.organization.controller.OrganizationController;
+
+import ru.bellintegrator.practice.organization.dao.impl.OrganizationDAOImpl;
+import ru.bellintegrator.practice.organization.service.impl.OrganizationServiceImpl;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
@@ -23,7 +27,7 @@ import static springfox.documentation.builders.PathSelectors.regex;
 @EnableSwagger2
 @ImportResource("spring_mvc_config.xml")
 @SpringBootApplication
-//@ComponentScan(basePackageClasses = {DummyControllerImpl.class, DummyServiceImpl.class, PersonDAOImpl.class})
+@ComponentScan(basePackageClasses = {OrganizationController.class, OrganizationServiceImpl.class, OrganizationDAOImpl.class})
 public class Application {
 
     public static void main(String[] args) {
