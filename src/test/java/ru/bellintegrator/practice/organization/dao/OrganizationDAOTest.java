@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.Application;
+import ru.bellintegrator.practice.guides.model.DocUser;
 import ru.bellintegrator.practice.organization.dao.OrganizationDAO;
 import ru.bellintegrator.practice.organization.model.Organization;
 
@@ -32,11 +33,45 @@ public class OrganizationDAOTest {
 
     @Test
     public void test() {
+        /**
+         * Проверка all()
+         */
+        List<Organization> orgs = organizationDAO.all();
+        Assert.assertEquals(3, orgs.size());
+
+        /**
+         * Проверка метода loadById
+         */
+        Organization org = organizationDAO.loadById((long) 3);
+        Assert.assertEquals("1C:Битрикс", org.getName());
+
+        Assert.assertEquals((Long) 11111111111111114L, org.getInn());
+
+        /**
+         * save
+         */
         Organization organization = new Organization();
+        organization.setAddress("ул.Ворошилова");
+        organization.setInn(4546546546548748947L);
+        organization.setKpp(4546000000548748947L);
+        organization.setActive(false);
+        organization.setName("ОАО 'ЗИФ'");
 
-        organization.setAddress("Пенза");
 
-        List<Organization> organizationAll = organizationDAO.all();
+        organizationDAO.save(organization);
+
+        Assert.assertEquals(4, organizationDAO.all().size());
+
+        /**
+         * update
+         */
+        organization.setName("ОАО 'ЗИФ плюс'");
+        organizationDAO.update(organization);
+
+        Assert.assertEquals("ОАО 'ЗИФ плюс'", organization.getName());
+
+        Assert.assertEquals(4, organizationDAO.all().size());
+
 
 
     }
