@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
 
 import ru.bellintegrator.practice.users.model.User;
 /**
- * Этото класс предназначен для доступа к полям doc_code, doc_date, doc_number при реализации связи М-М
+ * Этот класс предназначен для доступа к полям doc_code, doc_date, doc_number при реализации связи М-М
  */
 @Entity
 @Table(name = "Docs_Users")
@@ -44,10 +44,6 @@ public class DocUser {
     private Doc doc;
 
 
-/*
-    @Column(name = "doc_code")
-    private Integer docCode;
-*/
     @Column(name = "doc_date")
     @Temporal(TemporalType.DATE)
     private Date docDate;
@@ -86,15 +82,6 @@ public class DocUser {
         this.doc = docs;
     }
 
-/*
-    public Integer getDocCode() {
-        return docCode;
-    }
-
-    public void setDocCode(Integer docCode) {
-        this.docCode = docCode;
-    }
-*/
     public Date getDocDate() {
         return docDate;
     }

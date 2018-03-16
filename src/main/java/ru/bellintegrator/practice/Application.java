@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -15,6 +16,7 @@ import ru.bellintegrator.practice.organization.controller.OrganizationController
 import ru.bellintegrator.practice.organization.dao.impl.OrganizationDAOImpl;
 import ru.bellintegrator.practice.organization.service.impl.OrganizationServiceImpl;
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -53,12 +55,14 @@ public class Application {
     @Bean
     public Docket postApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("persons")
                 .apiInfo(apiInfo())
+                //.pathMapping("/")
                 .select()
-                .paths(regex("/person.*"))
+                .apis(RequestHandlerSelectors.basePackage("ru.bellintegrator.practice.organization"))
+                .paths(regex("/api.*"))
                 .build();
     }
+
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
