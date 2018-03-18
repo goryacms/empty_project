@@ -72,7 +72,18 @@ public class OrganizationDAOTest {
 
         Assert.assertEquals(4, organizationDAO.all().size());
 
+        organizationDAO.delete((long) 2);
 
+        Assert.assertEquals(3, organizationDAO.all().size());
+
+    }
+
+    @Test
+    public void delete() {
+
+        organizationDAO.delete((long) 2);
+
+        Assert.assertEquals(2, organizationDAO.all().size());
 
     }
 }
