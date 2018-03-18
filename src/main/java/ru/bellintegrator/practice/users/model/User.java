@@ -76,7 +76,8 @@ public class User {
 
 
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
+               cascade=CascadeType.ALL, orphanRemoval=true)
     private Set<DocUser> docUsers = new HashSet<DocUser>();
 
 

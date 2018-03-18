@@ -1,16 +1,9 @@
 package ru.bellintegrator.practice.organization.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Version;
+import ru.bellintegrator.practice.office.model.Office;
+
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Организация
@@ -75,6 +68,13 @@ public class Organization {
     @Column(name = "is_active")
     private boolean isActive;
 
+
+    @OneToMany(
+            mappedBy = "organization",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Office> offices;
 
     /**
      * Конструктор для hibernate
