@@ -2,17 +2,18 @@ package ru.bellintegrator.practice.organization.service;
 
 import ru.bellintegrator.practice.organization.model.Organization;
 import ru.bellintegrator.practice.organization.view.OrganizationView;
+import ru.bellintegrator.practice.organization.view.ResponseView;
 
 import java.util.List;
 
 public interface OrganizationService {
-    List<Organization> all();
+    List<OrganizationView> all();
 
     OrganizationView loadById(Long id);
 
-    void save(OrganizationView organization);
+    ResponseView save(OrganizationView organization);
 
-    void update(Organization organization);
+    ResponseView update(OrganizationView organization);
 
-    void delete(Long id);
+    ResponseView delete(Long id);
 }

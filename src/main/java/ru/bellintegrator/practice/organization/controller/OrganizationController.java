@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.bellintegrator.practice.organization.model.Organization;
 import ru.bellintegrator.practice.organization.service.OrganizationService;
 import ru.bellintegrator.practice.organization.view.OrganizationView;
+import ru.bellintegrator.practice.organization.view.ResponseView;
 
 import java.util.List;
 
@@ -19,22 +20,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RestController
 @RequestMapping(value = "/api/organization", produces = APPLICATION_JSON_VALUE)
 @Api(value = "OrganizationControllerAPI")
-public class OrganizationController /*implements ErrorController*/ {
+public class OrganizationController  {
     private OrganizationService orgService;
-
-    /*
-    private static final String PATH = "/error";
-
-    @RequestMapping(value = PATH)
-    public String error() {
-        return "Error handling";
-    }
-
-    @Override
-    public String getErrorPath() {
-        return PATH;
-    }
-    */
 
     @Autowired
     public OrganizationController(OrganizationService orgService) {
@@ -42,12 +29,20 @@ public class OrganizationController /*implements ErrorController*/ {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public OrganizationView organizationById(@PathVariable("id") long id) {
+    public OrganizationView organizationById(@PathVariable("id") Long id) {
         return orgService.loadById(id);
     }
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public List<Organization> organizations() {
+    /**
+     * TODO: добавить парамаетры; доработать логику в Service
+     */
+    @ApiOperation(value = "listOrganization", nickname = "listOrganization", httpMethod = "POST")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = Organization.class),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Failure")})
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    public List<OrganizationView> organizations() {
         return orgService.all();
     }
 
@@ -57,9 +52,32 @@ public class OrganizationController /*implements ErrorController*/ {
             @ApiResponse(code = 200, message = "Success", response = Organization.class),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
-    //@RequestMapping(value = "/save", method = {POST})
-    @PostMapping("/save")
-    public void addOrganization(@RequestBody OrganizationView orgView) {
-        orgService.save(orgView);
+    @RequestMapping(value = "/save", method = {POST})
+    public ResponseView addOrganization(@RequestBody OrganizationView orgView) {
+        return orgService.save(orgView);
+    }
+
+    @ApiOperation(value = "updateOrganization", nickname = "updOrganization", httpMethod = "POST")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = Organization.class),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Failure")})
+    @RequestMapping(value = "/update", method = {POST})
+    public ResponseView updOrganization(@RequestBody OrganizationView orgView) {
+        return orgService.update(orgView);
+    }
+
+
+    /**
+     * TODO: выявить причину почему не работает
+     */
+    @ApiOperation(value = "deleteOrganization", nickname = "delOrganization", httpMethod = "POST")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = Organization.class),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Failure")})
+    @RequestMapping(value = "/delete", method = {POST})
+    public ResponseView delOrganization(Long id) {
+        return orgService.delete(id);
     }
 }

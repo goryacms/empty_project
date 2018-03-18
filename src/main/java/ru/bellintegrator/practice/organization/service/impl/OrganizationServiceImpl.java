@@ -1,18 +1,22 @@
 package ru.bellintegrator.practice.organization.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.organization.dao.OrganizationDAO;
 import ru.bellintegrator.practice.organization.model.Organization;
 import ru.bellintegrator.practice.organization.service.OrganizationService;
 import ru.bellintegrator.practice.organization.view.OrganizationView;
+import ru.bellintegrator.practice.organization.view.ResponseView;
 
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
+@Scope(proxyMode = ScopedProxyMode.INTERFACES)
 public class OrganizationServiceImpl implements OrganizationService {
     private final OrganizationDAO dao;
 
@@ -23,8 +27,21 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     @Transactional
-    public List<Organization> all() {
-        return this.dao.all();
+    public List<OrganizationView> all() {
+        List<Organization> all = dao.all();
+
+        Function<Organization, OrganizationView> mapOrg = p -> {
+            OrganizationView view = new OrganizationView();
+            view.id = p.getId();
+            view.name = p.getName();
+            view.isActive = p.getActive();
+
+            return view;
+        };
+
+        return all.stream()
+                .map(mapOrg)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -32,9 +49,8 @@ public class OrganizationServiceImpl implements OrganizationService {
     public OrganizationView loadById(Long id) {
         Organization p = this.dao.loadById(id);
 
-        //Function<Organization, OrganizationView> mapOrg = p -> {
             OrganizationView view = new OrganizationView();
-            view.id = String.valueOf(p.getId());
+            view.id = p.getId();
             view.name = p.getName();
             view.fullName = p.getFullName();
             view.inn = p.getInn();
@@ -44,15 +60,15 @@ public class OrganizationServiceImpl implements OrganizationService {
             view.isActive = p.getActive();
 
             return view;
-        //};
 
-        //return mapOrg;
-        //return this.dao.loadById(id);
     }
 
+    /**
+     * TODO: продумать вывод result: success...убрать Boolean во view
+     */
     @Override
     @Transactional
-    public void save(OrganizationView orgView) {
+    public ResponseView save(OrganizationView orgView) {
         Organization org = new Organization();
         org.setName(orgView.name);
         org.setFullName(orgView.fullName);
@@ -63,17 +79,33 @@ public class OrganizationServiceImpl implements OrganizationService {
         org.setActive(orgView.isActive);
 
         this.dao.save(org);
+
+        return new ResponseView();
     }
 
     @Override
     @Transactional
-    public void update(Organization organization) {
-        this.dao.update(organization);
+    public ResponseView update(OrganizationView orgView) {
+        Organization org = this.dao.loadById(orgView.id);
+
+        org.setName(orgView.name);
+        org.setFullName(orgView.fullName);
+        org.setInn(orgView.inn);
+        org.setKpp(orgView.kpp);
+        org.setAddress(orgView.address);
+        org.setPhone(orgView.phone);
+        org.setActive(orgView.isActive);
+
+        this.dao.update(org);
+
+        return new ResponseView();
     }
 
     @Override
     @Transactional
-    public void delete(Long id) {
+    public ResponseView delete(Long id) {
         this.dao.delete(id);
+
+        return new ResponseView();
     }
 }

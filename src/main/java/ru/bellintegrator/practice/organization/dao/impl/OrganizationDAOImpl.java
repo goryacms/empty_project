@@ -60,7 +60,7 @@ public class OrganizationDAOImpl implements OrganizationDAO {
 
     @Override
     public void delete(Long id) {
-        Organization organization = (Organization) em.find(Organization.class, id);
+        Organization organization = em.find(Organization.class, id);
 
         if(organization != null){
             em.remove(organization);
