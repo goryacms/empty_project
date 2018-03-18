@@ -23,7 +23,7 @@ import java.util.Set;
 @WebAppConfiguration(value = "src/main/resources")
 @Transactional
 @DirtiesContext
-public class UserDAOTeat {
+public class UserDAOTest {
     @Autowired
     private UserDAO userDAO;
 
