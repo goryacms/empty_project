@@ -31,25 +31,53 @@ public class OrganizationDAOTest {
     @Autowired
     private OrganizationDAO organizationDAO;
 
+    /**
+     * update
+     */
     @Test
-    public void test() {
-        /**
-         * Проверка all()
-         */
+    public void update() {
+        Organization organization = organizationDAO.loadById((long) 3);
+        organization.setName("ОАО 'ЗИФ плюс'");
+        organizationDAO.update(organization);
+
+        Assert.assertEquals("ОАО 'ЗИФ плюс'", organization.getName());
+    }
+
+    /**
+     * Проверка delete
+     */
+    @Test
+    public void delete() {
+        organizationDAO.delete((long) 2);
+
+        Assert.assertEquals(2, organizationDAO.all().size());
+
+    }
+
+    /**
+     * Проверка all()
+     */
+    @Test
+    public void all(){
         List<Organization> orgs = organizationDAO.all();
         Assert.assertEquals(3, orgs.size());
+    }
 
-        /**
-         * Проверка метода loadById
-         */
+    /**
+     * Проверка метода loadById
+     */
+    @Test
+    public void loadById(){
         Organization org = organizationDAO.loadById((long) 3);
         Assert.assertEquals("1C:Битрикс", org.getName());
 
         Assert.assertEquals((Long) 11111111111111114L, org.getInn());
+    }
 
-        /**
-         * save
-         */
+    /**
+     * save
+     */
+    public void save(){
         Organization organization = new Organization();
         organization.setAddress("ул.Ворошилова");
         organization.setInn(4546546546548748947L);
@@ -57,33 +85,9 @@ public class OrganizationDAOTest {
         organization.setActive(false);
         organization.setName("ОАО 'ЗИФ'");
 
-
         organizationDAO.save(organization);
 
         Assert.assertEquals(4, organizationDAO.all().size());
-
-        /**
-         * update
-         */
-        organization.setName("ОАО 'ЗИФ плюс'");
-        organizationDAO.update(organization);
-
-        Assert.assertEquals("ОАО 'ЗИФ плюс'", organization.getName());
-
-        Assert.assertEquals(4, organizationDAO.all().size());
-
-        organizationDAO.delete((long) 2);
-
-        Assert.assertEquals(3, organizationDAO.all().size());
-
     }
 
-    @Test
-    public void delete() {
-
-        organizationDAO.delete((long) 2);
-
-        Assert.assertEquals(2, organizationDAO.all().size());
-
-    }
 }
