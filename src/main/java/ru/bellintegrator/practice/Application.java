@@ -11,6 +11,9 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
+import ru.bellintegrator.practice.office.controller.OfficeController;
+import ru.bellintegrator.practice.office.dao.impl.OfficeDAOImpl;
+import ru.bellintegrator.practice.office.service.impl.OfficeServiceImpl;
 import ru.bellintegrator.practice.organization.controller.OrganizationController;
 
 import ru.bellintegrator.practice.organization.dao.impl.OrganizationDAOImpl;
@@ -29,7 +32,8 @@ import static springfox.documentation.builders.PathSelectors.regex;
 @EnableSwagger2
 @ImportResource("spring_mvc_config.xml")
 @SpringBootApplication
-@ComponentScan(basePackageClasses = {OrganizationController.class, OrganizationServiceImpl.class, OrganizationDAOImpl.class})
+@ComponentScan(basePackageClasses = {OrganizationController.class, OrganizationServiceImpl.class, OrganizationDAOImpl.class,
+                                     OfficeController.class, OfficeServiceImpl.class, OfficeDAOImpl.class})
 public class Application {
 
     public static void main(String[] args) {
