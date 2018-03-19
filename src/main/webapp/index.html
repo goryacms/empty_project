@@ -2,7 +2,7 @@
 <html lang="ru">
     <head>
         <meta charset="UTF-8">
-        <title>Persons CRUD</title>
+        <title>Rest API</title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/main.css">
         <script src="js/jquery.min.js"></script>
@@ -53,13 +53,13 @@
                 <hr>
 
                 <div class="form-group">
-                    <label class="control-label col-md-2" for="Name">Id (для update)</label>
+                    <label class="control-label col-md-2" for="id">Id (для update)</label>
                     <div class="col-md-10">
                         <input class="form-control text-box single-line"  id="id" name="id" type="text" value="2">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-2" for="Name">Имя</label>
+                    <label class="control-label col-md-2" for="name">Имя</label>
                     <div class="col-md-10">
                         <input class="form-control text-box single-line"  id="name" name="name" type="text" value="ОАО 'ЗИФ'">
                     </div>
@@ -85,7 +85,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-2" for="address">Адрес</label>
                     <div class="col-md-10">
-                        <input class="form-control text-box single-line"  id="address" name="address" type="text" value="ОАО 'ЗИФ'">
+                        <input class="form-control text-box single-line"  id="address" name="address" type="text" value="г.Пенза">
                     </div>
                 </div>
                 <div class="form-group">
@@ -101,9 +101,6 @@
                     </div>
                 </div>
 
-
-
-
                 <div class="form-group">
                     <div class="col-md-offset-1 col-md-10">
                         <button id="addOrg" class="btn btn-default" >Сохранить</button>
@@ -114,6 +111,68 @@
                 </div>
 
             </div>
+
+            <hr>
+
+
+      <h2>CRUD Офис</h2>
+
+        <div class="form-horizontal">
+
+            <div class="form-horizontal">
+                <h4>Офис</h4>
+                <hr>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="idOf">Id, офис (для update)</label>
+                    <div class="col-md-10">
+                        <input class="form-control text-box single-line"  id="idOf" name="idOf" type="text" value="2">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="idOrgOf">Id, организация </label>
+                    <div class="col-md-10">
+                        <input class="form-control text-box single-line"  id="idOrgOf" name="idOrgOf" type="text" value="2">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="nameOf">Имя</label>
+                    <div class="col-md-10">
+                        <input class="form-control text-box single-line"  id="nameOf" name="nameOf" type="text" value="Склад">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="addressOf">Адрес</label>
+                    <div class="col-md-10">
+                        <input class="form-control text-box single-line"  id="addressOf" name="addressOf" type="text" value="ул.Куйбышева 27">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="phoneOf">Тел</label>
+                    <div class="col-md-10">
+                        <input class="form-control text-box single-line"  id="phoneOf" name="phoneOf" type="text" value="12-12-18">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="isActiveOf">Active</label>
+                    <div class="col-md-10">
+                        <input type="checkbox" id="isActiveOf" name="isActiveOf" >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-10">
+                        <button id="addOf" class="btn btn-default" >Сохранить</button>
+                        <button id="updOf" class="btn btn-default" >Обновить</button>
+                        <button id="listOf" class="btn btn-default" >list</button>
+                        <button id="delOf" class="btn btn-default" >Удалить</button>
+                    </div>
+                </div>
+
+            </div>
+
+
 
         </div>
 

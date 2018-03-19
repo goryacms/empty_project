@@ -8,7 +8,7 @@ $(document).ready(function () {
                 kpp: $("#kpp").val(),
                 address: $("#address").val(),
                 phone: $("#phone").val(),
-                isActive: $("#isActive").val() == 1 ? true : false
+                isActive: $("#isActive").prop( "checked" )
             };
 
             console.log('ORG', org);
@@ -25,8 +25,6 @@ $(document).ready(function () {
             });
 
         });
-
-
 
         $("#updOrg").click(function () {
             console.log('ORGANIZATION UPDATE');
@@ -63,7 +61,7 @@ $(document).ready(function () {
             var org = {
                 name: $("#name").val(),
                 inn: $("#inn").val(),
-                isActive: $("#isActive").val() == 1 ? true : false
+                isActive: $("#isActive").prop( "checked" )
             };
 
             console.log('ORG', org);
@@ -91,7 +89,6 @@ $(document).ready(function () {
             console.log('ORG', org);
 
             $.ajax({
-                url:"/api/organization/list",
                 url:"/api/organization/delete",
                 type:"POST",
                 data: JSON.stringify(org),
@@ -104,7 +101,106 @@ $(document).ready(function () {
 
         });
 
+/*---------------------------------------------------------------------------------------*/
 
 
+        $("#addOf").click(function () {
+            console.log('OFFICE');
+            var ofi = {
+                orgId: $("#idOrgOf").val(),
+                name: $("#nameOf").val(),
+                address: $("#addressOf").val(),
+                phone: $("#phoneOf").val(),
+                isActive: $("#isActiveOf").prop( "checked" )
+            };
+
+            console.log('OFI', ofi);
+
+            $.ajax({
+                url:"/api/office/save",
+                type:"POST",
+                data: JSON.stringify(ofi),
+                contentType:"application/json; charset=utf-8",
+                success: function(result){
+                    console.log(result);
+                    alert(result);
+                }
+            });
+
+        });
+
+        $("#updOf").click(function () {
+            console.log('OFFICE UPDATE');
+            var ofi = {
+                id: $("#idOf").val(),
+                orgId: $("#idOrgOf").val(),
+                name: $("#nameOf").val(),
+                address: $("#addressOf").val(),
+                phone: $("#phoneOf").val(),
+                isActive: $("#isActiveOf").prop( "checked" )
+            };
+
+            console.log('OFI', ofi);
+
+            $.ajax({
+                url:"/api/office/update",
+                type:"POST",
+                data: JSON.stringify(ofi),
+                contentType:"application/json; charset=utf-8",
+                success: function(result){
+                    console.log(result);
+                    alert(result);
+                }
+            });
+
+        });
+
+
+
+        $("#listOf").click(function () {
+            console.log('OFFICE LIST');
+            var ofi = {
+                orgId: $("#idOrgOf").val(),
+                name: $("#nameOf").val(),
+                inn: $("#innOf").val(),
+                isActive: $("#isActiveOf").prop( "checked" )
+            };
+
+            console.log('OFI', ofi);
+
+            $.ajax({
+                url:"/api/office/list",
+                type:"POST",
+                data: JSON.stringify(ofi),
+                contentType:"application/json; charset=utf-8",
+                success: function(result){
+                    console.log(result);
+                    alert(result);
+                }
+            });
+
+        });
+
+
+        $("#delOf").click(function () {
+            console.log('OFFICE DELETE');
+            var ofi = {
+                id: $("#idOf").val()
+            };
+
+            console.log('OFI', ofi);
+
+            $.ajax({
+                url:"/api/office/delete",
+                type:"POST",
+                data: JSON.stringify(ofi),
+                contentType:"application/json; charset=utf-8",
+                success: function(result){
+                    console.log(result);
+                    alert(result);
+                }
+            });
+
+        });
 
 });
