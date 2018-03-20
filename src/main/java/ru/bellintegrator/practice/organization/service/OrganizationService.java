@@ -7,7 +7,9 @@ import ru.bellintegrator.practice.organization.view.ResponseView;
 import java.util.List;
 
 public interface OrganizationService {
-    List<OrganizationView> all();
+    List<Organization> all();
+
+    List<OrganizationView> loadByParams(OrganizationView organization);
 
     OrganizationView loadById(Long id);
 

@@ -27,8 +27,13 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     @Transactional
-    public List<OrganizationView> all() {
-        List<Organization> all = dao.all();
+    public List<OrganizationView> loadByParams(OrganizationView orgView) {
+        Organization org = new Organization();
+        org.setName(orgView.name);
+        org.setInn(orgView.inn);
+        org.setActive(orgView.isActive);
+
+        List<Organization> all = dao.loadByParams(org);
 
         Function<Organization, OrganizationView> mapOrg = p -> {
             OrganizationView view = new OrganizationView();
@@ -42,6 +47,14 @@ public class OrganizationServiceImpl implements OrganizationService {
         return all.stream()
                 .map(mapOrg)
                 .collect(Collectors.toList());
+
+    }
+
+    @Override
+    @Transactional
+    public List<Organization> all() {
+        List<Organization> all = dao.all();
+        return all;
     }
 
     @Override
@@ -65,6 +78,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     /**
      * TODO: продумать вывод result: success...убрать Boolean во view
+     *       никакого ResponseView тут быть не должно, надо переделать
+     *       ResponseBody в controller
      */
     @Override
     @Transactional

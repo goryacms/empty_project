@@ -16,6 +16,12 @@ public interface OrganizationDAO {
     List<Organization> all();
 
     /**
+     * Получить объекты Organization по указанным параметрам
+     * @return
+     */
+    List<Organization> loadByParams(Organization organization);
+
+    /**
      * Получить Organization по идентификатору
      *
      * @param id

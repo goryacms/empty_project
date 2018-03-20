@@ -42,8 +42,8 @@ public class OrganizationController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public List<OrganizationView> organizations() {
-        return orgService.all();
+    public List<OrganizationView> organizations(@RequestBody OrganizationView orgView) {
+        return orgService.loadByParams(orgView);
     }
 
 
@@ -77,7 +77,7 @@ public class OrganizationController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/delete", method = {POST})
-    public ResponseView delOrganization(Long id) {
+    public ResponseView delOrganization(@RequestBody Long id) {
         return orgService.delete(id);
     }
 }
