@@ -1,4 +1,22 @@
 $(document).ready(function () {
+        $("#navOrg").click(function () {
+            $("#organization").show();
+            $("#office").hide();
+            $("#user").hide();
+        });
+        $("#navOffice").click(function () {
+            $("#office").show();
+            $("#organization").hide();
+            $("#user").hide();
+        });
+        $("#navUser").click(function () {
+            $("#user").show();
+            $("#office").hide();
+            $("#organization").hide();
+        });
+
+
+
         $("#addOrg").click(function () {
             console.log('ORGANIZATION');
             var org = {
@@ -202,5 +220,123 @@ $(document).ready(function () {
             });
 
         });
+
+
+/*-------------------------------------------------------------------------------------*/
+
+        $("#addUs").click(function () {
+            console.log('USER');
+            var us = {
+                firstName: $("#fnameUs").val(),
+                secondName: $("#snameUs").val(),
+                middleName: $("#mnameUs").val(),
+                position: $("#positionUs").val(),
+                phone: $("#phoneUs").val(),
+                docCode: $("#docCode").val(),
+                docName: $("#docnameUs").val(),
+                docNumber: $("#docnumberUs").val(),
+                docDate: $("#docdateUs").val(),
+                citizenshipName: $("#citizenshipNameUs").val(),
+                citizenshipCode: $("#citizenshipCodeUs").val(),
+                isIdentified: $("#isIdentUs").prop( "checked" )
+            };
+
+            console.log('US', us);
+
+            $.ajax({
+                url:"/api/user/save",
+                type:"POST",
+                data: JSON.stringify(us),
+                contentType:"application/json; charset=utf-8",
+                success: function(result){
+                    console.log(result);
+                    alert(result);
+                }
+            });
+        });
+
+
+        $("#updUs").click(function () {
+            console.log('USER UPDATE');
+            var us = {
+                id: $("#idUs").val(),
+                firstName: $("#fnameUs").val(),
+                secondName: $("#snameUs").val(),
+                middleName: $("#mnameUs").val(),
+                position: $("#positionUs").val(),
+                phone: $("#phoneUs").val(),
+                docName: $("#docnameUs").val(),
+                docNumber: $("#docnumberUs").val(),
+                docDate: $("#docdateUs").val(),
+                citizenshipName: $("#citizenshipNameUs").val(),
+                citizenshipCode: $("#citizenshipCodeUs").val(),
+                isIdentified: $("#isIdentUs").prop( "checked" )
+            };
+
+            console.log('US', us);
+
+            $.ajax({
+                url:"/api/user/update",
+                type:"POST",
+                data: JSON.stringify(us),
+                contentType:"application/json; charset=utf-8",
+                success: function(result){
+                    console.log(result);
+                    alert(result);
+                }
+            });
+
+        });
+
+
+        $("#listUs").click(function () {
+            console.log('USER LIST');
+            var us = {
+                officeId: $("#idOfUs").val(),
+                firstName: $("#fnameUs").val(),
+                secondName: $("#snameUs").val(),
+                middleName: $("#mnameUs").val(),
+                position: $("#positionUs").val(),
+                docCode: $("#docCode").val(),
+                citizenshipCode: $("#citizenshipCodeUs").val()
+            };
+
+            console.log('US', us);
+
+            $.ajax({
+                url:"/api/user/list",
+                type:"POST",
+                data: JSON.stringify(us),
+                contentType:"application/json; charset=utf-8",
+                success: function(result){
+                    console.log(result);
+                    alert(result);
+                }
+            });
+
+        });
+
+
+        $("#delUs").click(function () {
+            console.log('USER DELETE');
+            var us = {
+                id: $("#idUs").val()
+            };
+
+            console.log('US', us);
+
+            $.ajax({
+                url:"/api/user/delete",
+                type:"POST",
+                data: JSON.stringify(us),
+                contentType:"application/json; charset=utf-8",
+                success: function(result){
+                    console.log(result);
+                    alert(result);
+                }
+            });
+
+        });
+        
 
 });

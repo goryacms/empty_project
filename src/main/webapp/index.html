@@ -24,8 +24,9 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
 
-                    <li><a>Навигация 1</a>></li>
-                    <li><a>Навигация 2</a></li>
+                    <li id = "navOrg" class = "curPoin"><a>Организация</a>></li>
+                    <li id = "navOffice" class = "curPoin"><a>Офис</a>></li>
+                    <li id = "navUser" class = "curPoin"><a>Пользователь</a></li>
 
                 </ul>
             </div>
@@ -37,151 +38,270 @@
 
 
 
-
-
-
-
     <div class="container body-content">
         <br><br><br>
 
-        <h2>CRUD Организация</h2>
-
-        <div class="form-horizontal">
-
-                <div class="form-horizontal">
-                <h4>Организация</h4>
-                <hr>
-
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="id">Id (для update)</label>
-                    <div class="col-md-10">
-                        <input class="form-control text-box single-line"  id="id" name="id" type="text" value="2">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="name">Имя</label>
-                    <div class="col-md-10">
-                        <input class="form-control text-box single-line"  id="name" name="name" type="text" value="ОАО 'ЗИФ'">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="fullName">Полное имя</label>
-                    <div class="col-md-10">
-                        <input class="form-control text-box single-line"  id="fullName" name="fullName" type="text" value="Завод имени Фрунзе">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="inn">Инн</label>
-                    <div class="col-md-10">
-                        <input class="form-control text-box single-line"  id="inn" name="inn" type="text" value="4546546546548748947">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="kpp">КПП</label>
-                    <div class="col-md-10">
-                        <input class="form-control text-box single-line"  id="kpp" name="kpp" type="text" value="4546000000548748947">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="address">Адрес</label>
-                    <div class="col-md-10">
-                        <input class="form-control text-box single-line"  id="address" name="address" type="text" value="г.Пенза">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="phone">Тел</label>
-                    <div class="col-md-10">
-                        <input class="form-control text-box single-line"  id="phone" name="phone" type="text" value="50-12-60">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="isActive">Active</label>
-                    <div class="col-md-10">
-                        <input type="checkbox" id="isActive" name="isActive" >
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-1 col-md-10">
-                        <button id="addOrg" class="btn btn-default" >Сохранить</button>
-                        <button id="updOrg" class="btn btn-default" >Обновить</button>
-                        <button id="listOrg" class="btn btn-default" >list</button>
-                        <button id="delOrg" class="btn btn-default" >Удалить</button>
-                    </div>
-                </div>
-
-            </div>
-
-            <hr>
-
-
-      <h2>CRUD Офис</h2>
-
-        <div class="form-horizontal">
+        <div id = "organization">
+            <h2>CRUD Организация</h2>
 
             <div class="form-horizontal">
-                <h4>Офис</h4>
-                <hr>
 
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="idOf">Id, офис (для update)</label>
-                    <div class="col-md-10">
-                        <input class="form-control text-box single-line"  id="idOf" name="idOf" type="text" value="2">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="idOrgOf">Id, организация </label>
-                    <div class="col-md-10">
-                        <input class="form-control text-box single-line"  id="idOrgOf" name="idOrgOf" type="text" value="2">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="nameOf">Имя</label>
-                    <div class="col-md-10">
-                        <input class="form-control text-box single-line"  id="nameOf" name="nameOf" type="text" value="Склад">
-                    </div>
-                </div>
+                <div class="form-horizontal">
+                    <h4>Организация</h4>
+                    <hr>
 
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="addressOf">Адрес</label>
-                    <div class="col-md-10">
-                        <input class="form-control text-box single-line"  id="addressOf" name="addressOf" type="text" value="ул.Куйбышева 27">
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="id">Id (для update)</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line"  id="id" name="id" type="text" value="2">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="phoneOf">Тел</label>
-                    <div class="col-md-10">
-                        <input class="form-control text-box single-line"  id="phoneOf" name="phoneOf" type="text" value="12-12-18">
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="name">Имя</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line"  id="name" name="name" type="text" value="ОАО 'ЗИФ'">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="isActiveOf">Active</label>
-                    <div class="col-md-10">
-                        <input type="checkbox" id="isActiveOf" name="isActiveOf" >
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="fullName">Полное имя</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line"  id="fullName" name="fullName" type="text" value="Завод имени Фрунзе">
+                        </div>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="inn">Инн</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line"  id="inn" name="inn" type="text" value="4546546546548748947">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="kpp">КПП</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line"  id="kpp" name="kpp" type="text" value="4546000000548748947">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="address">Адрес</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line"  id="address" name="address" type="text" value="г.Пенза">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="phone">Тел</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line"  id="phone" name="phone" type="text" value="50-12-60">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="isActive">Active</label>
+                        <div class="col-md-10">
+                            <input type="checkbox" id="isActive" name="isActive" >
+                        </div>
+                    </div>
 
-                <div class="form-group">
-                    <div class="col-md-offset-1 col-md-10">
-                        <button id="addOf" class="btn btn-default" >Сохранить</button>
-                        <button id="updOf" class="btn btn-default" >Обновить</button>
-                        <button id="listOf" class="btn btn-default" >list</button>
-                        <button id="delOf" class="btn btn-default" >Удалить</button>
+                    <div class="form-group">
+                        <div class="col-md-offset-1 col-md-10">
+                            <button id="addOrg" class="btn btn-default" >Сохранить</button>
+                            <button id="updOrg" class="btn btn-default" >Обновить</button>
+                            <button id="listOrg" class="btn btn-default" >list</button>
+                            <button id="delOrg" class="btn btn-default" >Удалить</button>
+                        </div>
                     </div>
-                </div>
 
+                </div>
             </div>
+        </div>
 
+<!-- ----------------------------------------------------------------------------------------- -->
+        <div id = "office">
+            <hr>
+            <h2>CRUD Офис</h2>
+            <div class="form-horizontal">
 
+                <div class="form-horizontal">
+                    <h4>Офис</h4>
+                    <hr>
 
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="idOf">Id, офис (для update)</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line"  id="idOf" name="idOf" type="text" value="2">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="idOrgOf">Id, организация </label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line"  id="idOrgOf" name="idOrgOf" type="text" value="2">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="nameOf">Имя</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line"  id="nameOf" name="nameOf" type="text" value="Склад">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="addressOf">Адрес</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line"  id="addressOf" name="addressOf" type="text" value="ул.Куйбышева 27">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="phoneOf">Тел</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line"  id="phoneOf" name="phoneOf" type="text" value="12-12-18">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="isActiveOf">Active</label>
+                        <div class="col-md-10">
+                            <input type="checkbox" id="isActiveOf" name="isActiveOf" >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-1 col-md-10">
+                            <button id="addOf" class="btn btn-default" >Сохранить</button>
+                            <button id="updOf" class="btn btn-default" >Обновить</button>
+                            <button id="listOf" class="btn btn-default" >list</button>
+                            <button id="delOf" class="btn btn-default" >Удалить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+
+        <div id = "user">
+        <hr>
+          <h2>CRUD Пользователь</h2>
+
+            <div class="form-horizontal">
+
+                <div class="form-horizontal">
+                    <h4>User</h4>
+                    <hr>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="idOfUs">Id, офис (для list)</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line"  id="idOfUs" name="idOfUs" type="text" value="1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="idUs">Id, user (update) </label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line"  id="idUs" name="idUs" type="text" value="2">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="fnameUs">firstName</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line"  id="fnameUs" name="fnameUs" type="text" value="Геннадий">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="snameUs">secName</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line"  id="snameUs" name="snameUs" type="text" value="Малахов">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="mnameUs">midName</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line"  id="mnameUs" name="mnameUs" type="text" value="Эдуардович">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="positionUs">Должность</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line"  id="positionUs" name="positionUs" type="text" value="Аналитик">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="phoneUs">Тел</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line"  id="phoneUs" name="phoneUs" type="text" value="20-33-18">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="docCode">Код документа (для update)</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line"  id="docCode" name="docCode" type="text" value="65465432454654125">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="docnameUs">Название документа</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line"  id="docnameUs" name="docnameUs" type="text" value="Паспорт гражданина Российской Федерации">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="docnumberUs">Номер документа</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line"  id="docnumberUs" name="docnumberUs" type="text" value="65465432454654125">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="docdateUs">Дата документа</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line"  id="docdateUs" name="docdateUs" type="text" value="20.03.2018">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="citizenshipNameUs">Гражданство</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line"  id="citizenshipNameUs" name="citizenshipNameUs" type="text" value="российское">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="citizenshipCodeUs">Гражданство</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line"  id="citizenshipCodeUs" name="citizenshipCodeUs" type="text" value="1">
+                        </div>
+                    </div>
+
+                    
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="isIdentUs">Identified</label>
+                        <div class="col-md-10">
+                            <input type="checkbox" id="isIdentUs" name="isIdentUs" >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-1 col-md-10">
+                            <button id="addUs" class="btn btn-default" >Сохранить</button>
+                            <button id="updUs" class="btn btn-default" >Обновить</button>
+                            <button id="listUs" class="btn btn-default" >list</button>
+                            <button id="delUs" class="btn btn-default" >Удалить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- ---------------------------------------------------------------------------------------------------- -->
+
+            <hr />
+            <footer>
+                <p>&copy; 2018 – Горячев М.С.</p>
+            </footer>
         </div>
 
 
-        <hr />
-        <footer>
-            <p>&copy; 2018 – Горячев М.С.</p>
-        </footer>
-    </div>
+        
+    
 
 
     </body>
