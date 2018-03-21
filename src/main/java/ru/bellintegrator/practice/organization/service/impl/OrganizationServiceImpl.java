@@ -101,8 +101,10 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     @Transactional
     public ResponseView update(OrganizationView orgView) {
-        Organization org = this.dao.loadById(orgView.id);
 
+        Organization org = new Organization();
+
+        org.setId(orgView.id);
         org.setName(orgView.name);
         org.setFullName(orgView.fullName);
         org.setInn(orgView.inn);
@@ -112,6 +114,7 @@ public class OrganizationServiceImpl implements OrganizationService {
         org.setActive(orgView.isActive);
 
         this.dao.update(org);
+
 
         return new ResponseView();
     }

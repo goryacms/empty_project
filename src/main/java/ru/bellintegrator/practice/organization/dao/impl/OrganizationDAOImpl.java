@@ -63,7 +63,7 @@ public class OrganizationDAOImpl implements OrganizationDAO {
     @Override
     @SuppressWarnings("unchecked")
     public List<Organization> all() {
-        TypedQuery<Organization> query = em.createQuery("SELECT h FROM Organization org", Organization.class);
+        TypedQuery<Organization> query = em.createQuery("SELECT org FROM Organization org", Organization.class);
         return query.getResultList();
     }
 
@@ -82,7 +82,18 @@ public class OrganizationDAOImpl implements OrganizationDAO {
 
     @Override
     public void update(Organization organization) {
-        em.merge(organization);
+        Organization org = em.find(Organization.class, organization.getId());
+
+        org.setName(organization.getName());
+        org.setName(organization.getName());
+        org.setFullName(organization.getFullName());
+        org.setInn(organization.getInn());
+        org.setKpp(organization.getKpp());
+        org.setAddress(organization.getAddress());
+        org.setPhone(organization.getPhone());
+        org.setActive(organization.getActive());
+
+        //em.merge(org);
         logger.info("Organization successfully updated. Details: " + organization);
     }
 
