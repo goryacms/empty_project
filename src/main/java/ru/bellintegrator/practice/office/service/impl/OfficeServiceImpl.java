@@ -10,6 +10,8 @@ import ru.bellintegrator.practice.office.model.Office;
 import ru.bellintegrator.practice.office.service.OfficeService;
 import ru.bellintegrator.practice.office.view.OfficeView;
 import ru.bellintegrator.practice.office.view.ResponseView;
+import ru.bellintegrator.practice.organization.dao.OrganizationDAO;
+import ru.bellintegrator.practice.organization.model.Organization;
 
 import java.util.List;
 import java.util.function.Function;
@@ -19,17 +21,33 @@ import java.util.stream.Collectors;
 @Scope(proxyMode = ScopedProxyMode.INTERFACES)
 public class OfficeServiceImpl implements OfficeService {
     private final OfficeDAO dao;
+    private final OrganizationDAO daoOrg;
 
     @Autowired
-    public OfficeServiceImpl(OfficeDAO dao) {
-        this.dao = dao;
+    public OfficeServiceImpl(OfficeDAO dao, OrganizationDAO daoOrg) {
+        this.dao    = dao;
+        this.daoOrg = daoOrg;
     }
+
+
 
 
     @Override
     @Transactional
-    public List<OfficeView> all() {
-        List<Office> all = dao.all();
+    public List<OfficeView> loadByParams(OfficeView officeView) {
+
+        Office office = new Office();
+
+        office.setName(officeView.name);
+        office.setPhone(officeView.phone);
+        office.setActive(officeView.isActive);
+
+        Organization org = daoOrg.loadById(officeView.orgId);
+        office.setOrganization(org);
+
+
+
+        List<Office> all = dao.loadByParams(office);
 
         Function<Office, OfficeView> mapOffice = p -> {
             OfficeView view = new OfficeView();
@@ -43,6 +61,14 @@ public class OfficeServiceImpl implements OfficeService {
         return all.stream()
                 .map(mapOffice)
                 .collect(Collectors.toList());
+
+    }
+
+    @Override
+    @Transactional
+    public List<Office> all() {
+        List<Office> all = dao.all();
+        return all;
     }
 
     @Override
@@ -77,7 +103,7 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     @Transactional
     public ResponseView update(OfficeView officeView) {
-        Office office = this.dao.loadById(officeView.id);
+        Office office = new Office();
 
         office.setName(officeView.name);
         office.setAddress(officeView.address);

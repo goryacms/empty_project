@@ -25,6 +25,12 @@ public interface OfficeDAO {
     Office loadById(Long id);
 
     /**
+     * Получить объекты Office по указанным параметрам
+     * @return
+     */
+    List<Office> loadByParams(Office office);
+
+    /**
      * Сохранить Office
      *
      * @param office

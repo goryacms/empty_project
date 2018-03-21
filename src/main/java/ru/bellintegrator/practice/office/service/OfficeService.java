@@ -7,7 +7,9 @@ import ru.bellintegrator.practice.office.view.ResponseView;
 import java.util.List;
 
 public interface OfficeService {
-    List<OfficeView> all();
+    List<Office> all();
+
+    List<OfficeView> loadByParams(OfficeView office);
 
     OfficeView loadById(Long id);
 

@@ -69,6 +69,9 @@ VALUES (2,0, 'ОАО IT', 'Открытое Акционерное общест�
 INSERT INTO Organization (id,version,name,full_name,inn,kpp,address,phone,is_active)
 VALUES (3,0, '1C:Битрикс', '1С:Битрикс', 11111111111111114, 22222222222224, 'ул. Гоголя, 18', '66-69-99', false);
 
+INSERT INTO Organization (id,version,name,full_name,inn,kpp,address,phone,is_active)
+VALUES (4,0, 'три икса', 'ТриИкс', 111454514111111114, 622000022222224, 'ул. Кл.Цеткин, 88', '99-96-96', false);
+
 -- Офис
 INSERT INTO Office (id,version,organization_id,name,address,phone,is_active)
 VALUES (1,0,1, 'УИТ',  'ул. Проценко, 18', '21-21-01', true);

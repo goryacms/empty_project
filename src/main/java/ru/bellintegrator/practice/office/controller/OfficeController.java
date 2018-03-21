@@ -42,8 +42,8 @@ public class OfficeController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public List<OfficeView> offices() {
-        return officeService.all();
+    public List<OfficeView> offices(@RequestBody OfficeView offView) {
+        return officeService.loadByParams(offView);
     }
 
 
