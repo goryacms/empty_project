@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Виды документов. Нужна для реализации связи М-М с users
+ * Виды документов
  */
 @Entity
 @Table(name = "Docs")
