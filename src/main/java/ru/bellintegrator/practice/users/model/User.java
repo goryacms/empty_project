@@ -1,5 +1,6 @@
 package ru.bellintegrator.practice.users.model;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -70,6 +71,27 @@ public class User {
     @Column(name = "is_identified")
     private boolean isIdentified;
 
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    /**
+     * Дата регистрации
+     */
+    @Column(name = "registration_date")
+    @Temporal(TemporalType.DATE)
+    private Date registrationDate;
+
+    /**
+     * Зарплата
+     */
+    @Basic(optional = false)
+    @Column(name = "salary")
+    private double salary;
 
 
 
@@ -121,6 +143,10 @@ public class User {
         builder.append(getAge());
         builder.append(";isIdentified:");
         builder.append(isIdentified());
+        builder.append(";salary:");
+        builder.append(getSalary());
+        builder.append(";registrationDate:");
+        builder.append(getRegistrationDate());
         builder.append(";office:");
         builder.append(getOffice());
         builder.append(";citizenship:");
@@ -193,6 +219,14 @@ public class User {
 
     public void setIdentified(boolean identified) {
         isIdentified = identified;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
     }
 
     public Office getOffice() {

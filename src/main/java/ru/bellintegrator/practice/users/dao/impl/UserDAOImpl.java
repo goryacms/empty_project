@@ -8,6 +8,11 @@ import ru.bellintegrator.practice.users.dao.UserDAO;
 import ru.bellintegrator.practice.users.model.User;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
@@ -23,6 +28,45 @@ public class UserDAOImpl implements UserDAO {
     @Autowired
     public UserDAOImpl(EntityManager em) {
         this.em = em;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<User> loadByParams(User user) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<User> q = cb.createQuery(User.class);
+        Root<User> c = q.from(User.class);
+
+        Predicate p = cb.conjunction();
+
+        p = cb.equal((c.get("office").get("id")), user.getOffice().getId());
+
+        if(user.getFirstName() != null)
+            p = cb.and(cb.like((c.get("firstName")), "%"+user.getFirstName()+"%"));
+
+        if(user.getLastName() != null)
+            p = cb.and(cb.like((c.get("lastName")), "%"+user.getLastName()+"%"));
+
+        if(user.getMiddleName() != null)
+            p = cb.and(cb.like((c.get("middleName")), "%"+user.getMiddleName()+"%"));
+
+        if(user.getPosition() != null)
+            p = cb.and(cb.like((c.get("position")), "%"+user.getPosition()+"%"));
+
+        if(user.getCitizenship().getCode() != null)
+            p = cb.and(cb.equal((c.get("citizenship").get("code")), user.getCitizenship().getCode()));
+
+        q.select(c).where(p);
+
+        TypedQuery<User> query = em.createQuery(q);
+
+        List<User> userList = query.getResultList();
+
+        for(User user1: userList){
+            logger.info("User list: " + user1);
+        }
+
+        return userList;
     }
 
     @Override
@@ -50,7 +94,23 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void update(User user) {
-        em.merge(user);
+        User user1 = em.find(User.class, user.getId());
+
+        user1.setFirstName(user.getFirstName());
+        user1.setLastName(user.getLastName());
+        user1.setMiddleName(user.getMiddleName());
+        user1.setPosition(user.getPosition());
+        user1.setSalary(user.getSalary());
+        user1.setRegistrationDate(user.getRegistrationDate());
+        user1.setPhone(user.getPhone());
+
+        // Doc или DocUser.... set ли add.......
+        user1.setDocUsers(user.getDocUsers());
+
+
+        user1.setCitizenship(user.getCitizenship());
+
+
         logger.info("User successfully updated. Details: " + user);
     }
 

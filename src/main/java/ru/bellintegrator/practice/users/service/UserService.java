@@ -1,6 +1,7 @@
 package ru.bellintegrator.practice.users.service;
 
 import ru.bellintegrator.practice.users.model.User;
+import ru.bellintegrator.practice.users.view.UserView;
 
 import java.util.List;
 
@@ -9,9 +10,9 @@ public interface UserService {
 
     User loadById(Long id);
 
-    void save(User user);
+    void save(UserView user);
 
-    void update(User user);
+    void update(UserView user);
 
     void delete(Long id);
 }

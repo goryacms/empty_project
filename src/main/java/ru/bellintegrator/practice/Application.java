@@ -11,6 +11,9 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
+import ru.bellintegrator.practice.guides.dao.DocDAO;
+import ru.bellintegrator.practice.guides.dao.impl.CitizenshipDAOImpl;
+import ru.bellintegrator.practice.guides.dao.impl.DocDAOImpl;
 import ru.bellintegrator.practice.office.controller.OfficeController;
 import ru.bellintegrator.practice.office.dao.impl.OfficeDAOImpl;
 import ru.bellintegrator.practice.office.service.impl.OfficeServiceImpl;
@@ -18,6 +21,9 @@ import ru.bellintegrator.practice.organization.controller.OrganizationController
 
 import ru.bellintegrator.practice.organization.dao.impl.OrganizationDAOImpl;
 import ru.bellintegrator.practice.organization.service.impl.OrganizationServiceImpl;
+import ru.bellintegrator.practice.users.controller.UserController;
+import ru.bellintegrator.practice.users.dao.impl.UserDAOImpl;
+import ru.bellintegrator.practice.users.service.impl.UserServiceImpl;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -33,7 +39,9 @@ import static springfox.documentation.builders.PathSelectors.regex;
 @ImportResource("spring_mvc_config.xml")
 @SpringBootApplication
 @ComponentScan(basePackageClasses = {OrganizationController.class, OrganizationServiceImpl.class, OrganizationDAOImpl.class,
-                                     OfficeController.class, OfficeServiceImpl.class, OfficeDAOImpl.class})
+                                     OfficeController.class,       OfficeServiceImpl.class,       OfficeDAOImpl.class,
+                                     UserController.class,         UserServiceImpl.class,         UserDAOImpl.class,
+                                     DocDAOImpl.class,             CitizenshipDAOImpl.class})
 public class Application {
 
     public static void main(String[] args) {

@@ -25,6 +25,12 @@ public interface UserDAO {
     User loadById(Long id);
 
     /**
+     * Получить объекты User по указанным параметрам
+     * @return
+     */
+    List<User> loadByParams(User user);
+
+    /**
      * Сохранить User
      *
      * @param user
