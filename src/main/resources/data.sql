@@ -94,54 +94,54 @@ VALUES (8,0,3, 'Главный офис',  'ул. Володарского, 16',
 
 
 -- Пользователи
-INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id)
-VALUES (1,0, 1,'Иван','Прудников','Степанович','Программист','12-67-98',44, true, 1);
-INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id)
-VALUES (2,0, 1,'Александр','Пустырников','Никитович','Системный администратор','12-67-98',25, true, 1);
-INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id)
-VALUES (3,0, 1,'Марина','Павлова','Павловна','Грузчик','12-67-98',64, true, 3);
+INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id, salary)
+VALUES (1,0, 1,'Иван','Прудников','Степанович','Программист','12-67-98',44, true, 1, 32000);
+INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id, salary)
+VALUES (2,0, 1,'Александр','Пустырников','Никитович','Системный администратор','12-67-98',25, true, 1, 32000);
+INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id, salary)
+VALUES (3,0, 1,'Марина','Павлова','Павловна','Грузчик','12-67-98',64, true, 3, 32000);
 
-INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id)
-VALUES (4,0, 2,'Эвелина','Блёданс','Эдуардовна','Программист','11-67-98',44, true, 2);
-INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id)
-VALUES (5,0, 2,'Энрике','Гилерме','Антонио','Программист','12-63-98',27, true, 1);
-INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id)
-VALUES (6,0, 2,'Максим','Багаев','Николаевич','Аналитик','12-67-78',23, true, 1);
+INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id, salary)
+VALUES (4,0, 2,'Эвелина','Блёданс','Эдуардовна','Программист','11-67-98',44, true, 2, 32000);
+INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id, salary)
+VALUES (5,0, 2,'Энрике','Гилерме','Антонио','Программист','12-63-98',27, true, 1, 32000);
+INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id, salary)
+VALUES (6,0, 2,'Максим','Багаев','Николаевич','Аналитик','12-67-78',23, true, 1, 32000);
 
-INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id)
-VALUES (7,0, 3,'Геннадий','Романцев','Анатольевич','Менеджер','14-67-98',34, true, 1);
-INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id)
-VALUES (8,0, 3,'Виктор','Гончаренко','Георгиевич','Бухгалтер','15-67-98',25, true,2);
+INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id, salary)
+VALUES (7,0, 3,'Геннадий','Романцев','Анатольевич','Менеджер','14-67-98',34, true, 1, 32000);
+INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id, salary)
+VALUES (8,0, 3,'Виктор','Гончаренко','Георгиевич','Бухгалтер','15-67-98',25, true,2, 32000);
 
 
-INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id)
-VALUES (9,0, 4,'Степан','Васильев','Васильевич','Программист','72-67-98',36, true, 1);
-INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id)
-VALUES (10,0, 4,'Али','Алиев','Алиевич','Менеджер','72-67-98',40, true, 1);
-INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id)
+INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id, salary)
+VALUES (9,0, 4,'Степан','Васильев','Васильевич','Программист','72-67-98',36, true, 1, 32000);
+INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id, salary)
+VALUES (10,0, 4,'Али','Алиев','Алиевич','Менеджер','72-67-98',40, true, 1, 32000);
+INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id, salary)
 
-VALUES (11,0, 5,'Николай','Николаев','Николаевич','Программист','14-67-98',41, true, 1);
-INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id)
-VALUES (12,0, 5,'Фёдор','Фёдоров','Николаевич','Программист','11-67-98',54, true, 1);
+VALUES (11,0, 5,'Николай','Николаев','Николаевич','Программист','14-67-98',41, true, 1, 32000);
+INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id, salary)
+VALUES (12,0, 5,'Фёдор','Фёдоров','Николаевич','Программист','11-67-98',54, true, 1, 32000);
 
-INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id)
-VALUES (13,0, 6,'Юрий','Никулин','Николаевич','Бухгалтер','12-67-92',24, true, 1);
-INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id)
-VALUES (14,0, 6,'Махмуд','Ашхабадов','Фёдорович','Начальник','12-67-90',27, true, 6);
+INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id, salary)
+VALUES (13,0, 6,'Юрий','Никулин','Николаевич','Бухгалтер','12-67-92',24, true, 1, 13600);
+INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id, salary)
+VALUES (14,0, 6,'Махмуд','Ашхабадов','Фёдорович','Начальник','12-67-90',27, true, 6, 13600);
 
-INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id)
-VALUES (15,0, 7,'Сергей','Крымкин','Сергеевич','Руководитель','12-67-78',34, true , 5);
-INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id)
-VALUES (16,0, 7,'Юлия','Захарова','Геннадьевна','Системный администратор','42-67-98',24, true, 4);
-INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id)
-VALUES (17,0, 7,'Аделаида','Степанова','Генриховна','Программист','15-67-98',24, true, 2);
+INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id, salary)
+VALUES (15,0, 7,'Сергей','Крымкин','Сергеевич','Руководитель','12-67-78',34, true , 5, 13600);
+INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id, salary)
+VALUES (16,0, 7,'Юлия','Захарова','Геннадьевна','Системный администратор','42-67-98',24, true, 4, 13600);
+INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id, salary)
+VALUES (17,0, 7,'Аделаида','Степанова','Генриховна','Программист','15-67-98',24, true, 2, 13600);
 
-INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id)
-VALUES (18,0, 8,'Виктория','Майорова','Захаровна','Уборщица','12-67-98',24, true, 3);
-INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id)
-VALUES (19,0, 8,'Никита','Селезнёв','Александрович','Программист','18-67-98',24, true, 2);
-INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id)
-VALUES (20,0, 8,'Антон','Павлов','Денисович','Руководитель','12-87-98',24, true, 1);
+INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id, salary)
+VALUES (18,0, 8,'Виктория','Майорова','Захаровна','Уборщица','12-67-98',24, true, 3, 10000);
+INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id, salary)
+VALUES (19,0, 8,'Никита','Селезнёв','Александрович','Программист','18-67-98',24, true, 2, 10000);
+INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id, salary)
+VALUES (20,0, 8,'Антон','Павлов','Денисович','Руководитель','12-87-98',24, true, 1, 10000);
 
 -- Для связи User и Docs
 INSERT INTO Docs_Users (id,version,user_id,doc_code,doc_date, doc_number)

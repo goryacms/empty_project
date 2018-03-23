@@ -55,6 +55,8 @@ CREATE TABLE IF NOT EXISTS Users (
     position        VARCHAR(50),
     phone           VARCHAR(15),
     age             INTEGER ,
+    salary          INTEGER ,
+    registration_date       DATE,
 
     citizenship_id  BIGINT,
 
