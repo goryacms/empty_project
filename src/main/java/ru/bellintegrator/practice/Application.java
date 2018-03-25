@@ -14,6 +14,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import ru.bellintegrator.practice.guides.dao.DocDAO;
 import ru.bellintegrator.practice.guides.dao.impl.CitizenshipDAOImpl;
 import ru.bellintegrator.practice.guides.dao.impl.DocDAOImpl;
+import ru.bellintegrator.practice.guides.dao.impl.DocUserDAOImpl;
 import ru.bellintegrator.practice.office.controller.OfficeController;
 import ru.bellintegrator.practice.office.dao.impl.OfficeDAOImpl;
 import ru.bellintegrator.practice.office.service.impl.OfficeServiceImpl;
@@ -35,13 +36,16 @@ import java.util.Locale;
 
 import static springfox.documentation.builders.PathSelectors.regex;
 
+/**
+ * TODO: ComponentScan ->  basePackageClasses
+ */
 @EnableSwagger2
 @ImportResource("spring_mvc_config.xml")
 @SpringBootApplication
 @ComponentScan(basePackageClasses = {OrganizationController.class, OrganizationServiceImpl.class, OrganizationDAOImpl.class,
                                      OfficeController.class,       OfficeServiceImpl.class,       OfficeDAOImpl.class,
                                      UserController.class,         UserServiceImpl.class,         UserDAOImpl.class,
-                                     DocDAOImpl.class,             CitizenshipDAOImpl.class})
+                                     DocDAOImpl.class,             CitizenshipDAOImpl.class,      DocUserDAOImpl.class})
 public class Application {
 
     public static void main(String[] args) {
