@@ -5,12 +5,10 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.web.bind.annotation.*;
 import ru.bellintegrator.practice.organization.model.Organization;
 import ru.bellintegrator.practice.organization.service.OrganizationService;
 import ru.bellintegrator.practice.organization.view.OrganizationView;
-import ru.bellintegrator.practice.organization.view.ResponseView;
 
 import java.util.List;
 
@@ -53,8 +51,8 @@ public class OrganizationController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/save", method = {POST})
-    public ResponseView addOrganization(@RequestBody OrganizationView orgView) {
-        return orgService.save(orgView);
+    public void addOrganization(@RequestBody OrganizationView orgView) {
+        orgService.save(orgView);
     }
 
     @ApiOperation(value = "updateOrganization", nickname = "updOrganization", httpMethod = "POST")
@@ -63,8 +61,8 @@ public class OrganizationController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/update", method = {POST})
-    public ResponseView updOrganization(@RequestBody OrganizationView orgView) {
-        return orgService.update(orgView);
+    public void updOrganization(@RequestBody OrganizationView orgView) {
+        orgService.update(orgView);
     }
 
 
@@ -76,8 +74,8 @@ public class OrganizationController  {
             @ApiResponse(code = 200, message = "Success", response = Organization.class),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
-    @RequestMapping(value = "/delete", method = {POST})
-    public ResponseView delOrganization(@RequestBody Long id) {
-        return orgService.delete(id);
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public void delOrganization(@RequestBody OrganizationView orgView) {
+        orgService.delete(orgView);
     }
 }

@@ -9,7 +9,6 @@ import ru.bellintegrator.practice.organization.dao.OrganizationDAO;
 import ru.bellintegrator.practice.organization.model.Organization;
 import ru.bellintegrator.practice.organization.service.OrganizationService;
 import ru.bellintegrator.practice.organization.view.OrganizationView;
-import ru.bellintegrator.practice.organization.view.ResponseView;
 
 import java.util.List;
 import java.util.function.Function;
@@ -83,7 +82,7 @@ public class OrganizationServiceImpl implements OrganizationService {
      */
     @Override
     @Transactional
-    public ResponseView save(OrganizationView orgView) {
+    public void save(OrganizationView orgView) {
         Organization org = new Organization();
         org.setName(orgView.name);
         org.setFullName(orgView.fullName);
@@ -94,13 +93,11 @@ public class OrganizationServiceImpl implements OrganizationService {
         org.setActive(orgView.isActive);
 
         this.dao.save(org);
-
-        return new ResponseView();
     }
 
     @Override
     @Transactional
-    public ResponseView update(OrganizationView orgView) {
+    public void update(OrganizationView orgView) {
 
         Organization org = new Organization();
 
@@ -114,16 +111,11 @@ public class OrganizationServiceImpl implements OrganizationService {
         org.setActive(orgView.isActive);
 
         this.dao.update(org);
-
-
-        return new ResponseView();
     }
 
     @Override
     @Transactional
-    public ResponseView delete(Long id) {
-        this.dao.delete(id);
-
-        return new ResponseView();
+    public void delete(OrganizationView organization) {
+        this.dao.delete(organization.id);
     }
 }
