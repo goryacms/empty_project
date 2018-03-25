@@ -90,7 +90,7 @@ VALUES (6,0,2, 'Бухгалтерия',  'ул. Володарского, 6', '
 INSERT INTO Office (id,version,organization_id,name,address,phone,is_active)
 VALUES (7,0,3, 'Отдел продаж',  'ул. Куйбышева, 19', '22-02-95', true);
 INSERT INTO Office (id,version,organization_id,name,address,phone,is_active)
-VALUES (8,0,3, 'Главный офис',  'ул. Володарского, 16', '98-07-99', true);
+VALUES (8,0,3, 'Отдел тех.помощи',  'ул. Володарского, 16', '98-07-99', true);
 
 
 -- Пользователи
@@ -118,8 +118,8 @@ INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,positio
 VALUES (9,0, 4,'Степан','Васильев','Васильевич','Программист','72-67-98',36, true, 1, 32000);
 INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id, salary)
 VALUES (10,0, 4,'Али','Алиев','Алиевич','Менеджер','72-67-98',40, true, 1, 32000);
-INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id, salary)
 
+INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id, salary)
 VALUES (11,0, 5,'Николай','Николаев','Николаевич','Программист','14-67-98',41, true, 1, 32000);
 INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id, salary)
 VALUES (12,0, 5,'Фёдор','Фёдоров','Николаевич','Программист','11-67-98',54, true, 1, 32000);
@@ -137,7 +137,7 @@ INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,positio
 VALUES (17,0, 7,'Аделаида','Степанова','Генриховна','Программист','15-67-98',24, true, 2, 13600);
 
 INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id, salary)
-VALUES (18,0, 8,'Виктория','Майорова','Захаровна','Уборщица','12-67-98',24, true, 3, 10000);
+VALUES (18,0, 8,'Марина','Майорова','Захаровна','Уборщица','12-67-98',24, true, 3, 10000);
 INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id, salary)
 VALUES (19,0, 8,'Никита','Селезнёв','Александрович','Программист','18-67-98',24, true, 2, 10000);
 INSERT INTO Users (id,version,office_id,first_name,last_name,middle_name,position,phone,age,is_identified, citizenship_id, salary)
