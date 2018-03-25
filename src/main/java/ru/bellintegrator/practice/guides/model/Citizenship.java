@@ -30,7 +30,7 @@ public class Citizenship {
      * Код страны
      */
     @Column(name = "countries_code")
-    private Integer code;
+    private Long code;
 
     /**
      * Наименование гражданства
@@ -50,11 +50,11 @@ public class Citizenship {
         this.id = id;
     }
 
-    public Integer getCode() {
+    public Long getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(Long code) {
         this.code = code;
     }
 
