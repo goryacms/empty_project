@@ -5,12 +5,10 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.web.bind.annotation.*;
 import ru.bellintegrator.practice.office.model.Office;
 import ru.bellintegrator.practice.office.service.OfficeService;
 import ru.bellintegrator.practice.office.view.OfficeView;
-import ru.bellintegrator.practice.office.view.ResponseView;
 
 import java.util.List;
 
@@ -53,8 +51,8 @@ public class OfficeController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/save", method = {POST})
-    public ResponseView addOffice(@RequestBody OfficeView officeView) {
-        return officeService.save(officeView);
+    public void addOffice(@RequestBody OfficeView officeView) {
+        officeService.save(officeView);
     }
 
     @ApiOperation(value = "updateOffice", nickname = "updOffice", httpMethod = "POST")
@@ -63,8 +61,8 @@ public class OfficeController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/update", method = {POST})
-    public ResponseView updOffice(@RequestBody OfficeView officeView) {
-        return officeService.update(officeView);
+    public void updOffice(@RequestBody OfficeView officeView) {
+        officeService.update(officeView);
     }
 
 
@@ -76,8 +74,8 @@ public class OfficeController  {
             @ApiResponse(code = 200, message = "Success", response = Office.class),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
-    @RequestMapping(value = "/delete", method = {POST})
-    public ResponseView delOffice(Long id) {
-        return officeService.delete(id);
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public void delOffice(@RequestBody OfficeView officeView) {
+        officeService.delete(officeView);
     }
 }

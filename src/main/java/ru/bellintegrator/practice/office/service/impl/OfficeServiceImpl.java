@@ -9,7 +9,6 @@ import ru.bellintegrator.practice.office.dao.OfficeDAO;
 import ru.bellintegrator.practice.office.model.Office;
 import ru.bellintegrator.practice.office.service.OfficeService;
 import ru.bellintegrator.practice.office.view.OfficeView;
-import ru.bellintegrator.practice.office.view.ResponseView;
 import ru.bellintegrator.practice.organization.dao.OrganizationDAO;
 import ru.bellintegrator.practice.organization.model.Organization;
 
@@ -35,7 +34,6 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     @Transactional
     public List<OfficeView> loadByParams(OfficeView officeView) {
-
         Office office = new Office();
 
         office.setName(officeView.name);
@@ -76,19 +74,19 @@ public class OfficeServiceImpl implements OfficeService {
     public OfficeView loadById(Long id) {
         Office p = this.dao.loadById(id);
 
-            OfficeView view = new OfficeView();
-            view.id = p.getId();
-            view.name = p.getName();
-            view.address = p.getAddress();
-            view.phone = p.getPhone();
-            view.isActive = p.getActive();
+        OfficeView view = new OfficeView();
+        view.id = p.getId();
+        view.name = p.getName();
+        view.address = p.getAddress();
+        view.phone = p.getPhone();
+        view.isActive = p.getActive();
 
-            return view;
+        return view;
     }
 
     @Override
     @Transactional
-    public ResponseView save(OfficeView officeView) {
+    public void save(OfficeView officeView) {
         Office office = new Office();
         office.setName(officeView.name);
         office.setAddress(officeView.address);
@@ -97,29 +95,25 @@ public class OfficeServiceImpl implements OfficeService {
 
         this.dao.save(office);
 
-        return new ResponseView();
     }
 
     @Override
     @Transactional
-    public ResponseView update(OfficeView officeView) {
+    public void update(OfficeView officeView) {
         Office office = new Office();
 
+        office.setId(officeView.id);
         office.setName(officeView.name);
         office.setAddress(officeView.address);
         office.setPhone(officeView.phone);
         office.setActive(officeView.isActive);
 
         this.dao.update(office);
-
-        return new ResponseView();
     }
 
     @Override
     @Transactional
-    public ResponseView delete(Long id) {
-        this.dao.delete(id);
-
-        return new ResponseView();
+    public void delete(OfficeView office) {
+        this.dao.delete(office.id);
     }
 }

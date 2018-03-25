@@ -43,12 +43,12 @@ public class OfficeDAOImpl implements OfficeDAO {
         p = cb.equal((c.get("organization").get("id")), office.getOrganization().getId());
 
         if(office.getName() != null)
-            p = cb.and(cb.like((c.get("name")), "%"+office.getName()+"%"));
+            p = cb.and(p, cb.like((c.get("name")), "%"+office.getName()+"%"));
 
         if(office.getPhone() != null)
-            p = cb.and(cb.equal((c.get("phone")), office.getPhone()));
+            p = cb.and(p, cb.equal((c.get("phone")), office.getPhone()));
 
-        p = cb.and(cb.equal((c.get("isActive")), office.getActive()));
+        p = cb.and(p, cb.equal((c.get("isActive")), office.getActive()));
 
         q.select(c).where(p);
 
