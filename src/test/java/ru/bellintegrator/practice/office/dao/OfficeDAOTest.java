@@ -101,4 +101,27 @@ public class OfficeDAOTest {
         Office office1 = officeDAO.loadById(9L);
         Assert.assertEquals("Служба главного технолога", office1.getName());
     }
+
+    /**
+     * loadByParams
+     */
+    @Test
+    public void loadByParams(){
+        Office office = new Office();
+
+        Organization organization = new Organization();
+        organization.setId(3L);
+        office.setOrganization(organization);
+
+        office.setName("Отдел");
+
+        office.setActive(true);
+
+        List<Office> office2 = officeDAO.loadByParams(office);
+
+        Assert.assertEquals(2, office2.size());
+        Assert.assertEquals("ул. Куйбышева, 19", office2.get(0).getAddress());
+
+
+    }
 }

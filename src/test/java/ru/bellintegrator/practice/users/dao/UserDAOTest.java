@@ -14,6 +14,7 @@ import ru.bellintegrator.practice.Application;
 //import ru.bellintegrator.practice.office.model.Office;
 import ru.bellintegrator.practice.guides.dao.CitizenshipDAO;
 import ru.bellintegrator.practice.guides.dao.DocDAO;
+import ru.bellintegrator.practice.guides.dao.DocUserDAO;
 import ru.bellintegrator.practice.guides.model.Citizenship;
 import ru.bellintegrator.practice.guides.model.Doc;
 import ru.bellintegrator.practice.guides.model.DocUser;
@@ -26,7 +27,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+
 //import java.util.Set;
 
 @RunWith(SpringRunner.class)
@@ -44,6 +47,9 @@ public class UserDAOTest {
 
     @Autowired
     private DocDAO docDAO;
+
+    @Autowired
+    private DocUserDAO docUserDAO;
 
     @Autowired
     private CitizenshipDAO CitizDAO;
@@ -82,6 +88,20 @@ public class UserDAOTest {
 
         Assert.assertEquals("Али", user.getFirstName());
         Assert.assertEquals("ул. Гагарина, 1-а", user.getOffice().getAddress());
+
+        Optional<DocUser> first = user.getDocUsers().stream().findFirst();
+
+        long docCode = first.get().getDocs().getId();
+        String docName = first.get().getDocs().getName();
+        long docNumber = first.get().getDocNumber();
+
+
+
+        Assert.assertEquals(7L, docCode);
+        Assert.assertEquals("Военный билет", docName);
+        Assert.assertEquals(6843161613L, docNumber);
+
+
     }
 
     /**
@@ -111,12 +131,13 @@ public class UserDAOTest {
         us.setRegistrationDate(regDt);
         us.setPhone("35-15-90");
 
-        // Загрузка документов
-        DocUser docUser = new DocUser();
+        // Загрузка документов (Код документа = 21 (паспорт гражданина...) , для user_id = 19)
+        DocUser docUser = (DocUser) docUserDAO.loadByParams( 21,19L);
         docUser.setDocDate(docDt);
         docUser.setDocNumber(12123165115165165L);
 
-        Doc doc = docDAO.loadById(21); // Это же справочник документов, значит берём из базы
+        // меняю код документа с 21 на 7
+        Doc doc = docDAO.loadById(7); // Это же справочник документов, значит берём из базы
 
         docUser.setDocs(doc);
 
@@ -129,11 +150,37 @@ public class UserDAOTest {
         userDAO.update(us);
 
 
+        // Проверка обновлённых данных
+
         User us1 = userDAO.loadById(19L);
 
         Assert.assertEquals("Иван", us1.getFirstName());
         Assert.assertEquals("Драматург", us1.getPosition());
+
+        Assert.assertEquals(1, us1.getDocUsers().size());
+
+
+        // Проверка DocUser
+        Optional<DocUser> first = us1.getDocUsers().stream().findFirst();
+
+        long docCode = first.get().getDocs().getId();
+        String docName = first.get().getDocs().getName();
+        long docNumber = first.get().getDocNumber();
+
+
+        Assert.assertEquals(7L, docCode); // был 21
+        Assert.assertEquals("Военный билет", docName); // был Паспорт гражданина......
+        // было 216846512154L
+        Assert.assertEquals(12123165115165165L, docNumber);
+
+
+        // Проверка изменений в docUser (уже непосредственно из docUserDAO)
+        DocUser docUser2 = (DocUser) docUserDAO.loadByParams( 7,19L);
+        long num = docUser2.getDocNumber();
+
+        Assert.assertEquals(12123165115165165L, num);
     }
+
 
     /**
      * loadByParams
