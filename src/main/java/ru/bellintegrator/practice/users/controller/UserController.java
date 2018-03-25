@@ -28,8 +28,7 @@ public class UserController  {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public UserView userById(@PathVariable("id") Long id) {
-        //return userService.loadById(id);
-        return null;
+        return userService.loadById(id);
     }
 
     /**
@@ -41,8 +40,8 @@ public class UserController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public List<UserView> users() {
-        return null; //userService.all();
+    public List<UserView> users(@RequestBody UserView usView) {
+        return userService.loadByParams(usView);
     }
 
 
@@ -75,9 +74,8 @@ public class UserController  {
             @ApiResponse(code = 200, message = "Success", response = User.class),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
-    @RequestMapping(value = "/delete", method = {POST})
-    public void delUser(Long id) {
-        //return userService.delete(id);
-        System.out.println("44");
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public void delUser(@RequestBody UserView userView) {
+        userService.delete(userView);
     }
 }

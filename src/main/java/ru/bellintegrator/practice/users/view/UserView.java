@@ -10,31 +10,39 @@ public class UserView {
     @ApiModelProperty
     public Long id;
 
+    public Long officeId;
+
+    public String officeName;
+
     public String firstName;
 
     public String secondName;
 
     public String middleName;
 
+    public String fullName;
+
     public String position;
 
     public String phone;
+
+    public Integer docCode;
 
     public String docName;
 
     public Long docNumber;
 
-    public Date docDate;
+    public String docDate;
 
     public String citizenshipName;
 
-    public Integer citizenshipCode;
+    public Long citizenshipCode;
 
     public Boolean isIdentified;
 
-    public Double salary;
+    public double salary;
 
-    public Date registrationDate;
+    public String registrationDate;
 
 
     public UserView() {

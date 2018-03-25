@@ -53,7 +53,7 @@ public class UserDAOImpl implements UserDAO {
         if(user.getPosition() != null)
             p = cb.and(cb.like((c.get("position")), "%"+user.getPosition()+"%"));
 
-        if(user.getCitizenship().getCode() != null)
+        if(user.getCitizenship() != null)
             p = cb.and(cb.equal((c.get("citizenship").get("code")), user.getCitizenship().getCode()));
 
         q.select(c).where(p);
@@ -104,12 +104,9 @@ public class UserDAOImpl implements UserDAO {
         user1.setRegistrationDate(user.getRegistrationDate());
         user1.setPhone(user.getPhone());
 
-        // Doc или DocUser.... set ли add.......
         user1.setDocUsers(user.getDocUsers());
 
-
         user1.setCitizenship(user.getCitizenship());
-
 
         logger.info("User successfully updated. Details: " + user);
     }

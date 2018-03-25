@@ -1,5 +1,6 @@
 package ru.bellintegrator.practice.users.model;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -100,7 +101,7 @@ public class User {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
                cascade=CascadeType.ALL, orphanRemoval=true)
-    private Set<DocUser> docUsers = new HashSet<DocUser>();
+    private Set<DocUser> docUsers = new HashSet<>();
 
 
 
@@ -245,15 +246,25 @@ public class User {
         this.docUsers.add(docUser);
     }
 
+    public void removeAllDocUsers(Set<DocUser> docUsers){
+        this.docUsers.removeAll(docUsers);
+    }
+
+    public void removeDocUser(DocUser docUser) {
+        this.docUsers.remove(docUser);
+    }
+
     public Set<DocUser> getDocUsers() {
         return docUsers;
     }
 
     public void setDocUsers(Set<DocUser> docUsers) {
-        this.docUsers = docUsers;
+        //this.docUsers = docUsers;
+        this.docUsers.clear();
+        if(docUsers != null){
+            this.docUsers.addAll(docUsers);
+        }
     }
-
-
 
 
 

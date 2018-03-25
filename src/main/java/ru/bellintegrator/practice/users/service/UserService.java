@@ -8,11 +8,13 @@ import java.util.List;
 public interface UserService {
     List<User> all();
 
-    User loadById(Long id);
+    List<UserView> loadByParams(UserView user);
+
+    UserView loadById(Long id);
 
     void save(UserView user);
 
     void update(UserView user);
 
-    void delete(Long id);
+    void delete(UserView user);
 }
