@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS Users (
     salary          INTEGER ,
     registration_date       DATE,
 
-    citizenship_id  BIGINT,
+    citizenship_code  BIGINT,
 
     is_identified    BOOLEAN NOT NULL
 );
@@ -93,27 +93,16 @@ CREATE INDEX IX_DocsUsers_Docs_Id ON Docs_Users (doc_code);
 ALTER TABLE Docs_Users ADD FOREIGN KEY (user_id) REFERENCES Users(id);
 ALTER TABLE Docs_Users ADD FOREIGN KEY (doc_code) REFERENCES Docs(code);
 
--- Страны
 
-CREATE TABLE IF NOT EXISTS Countries (
-    code       INTEGER  PRIMARY KEY ,
-    version    INTEGER NOT NULL,
-    name       VARCHAR(100) NOT NULL
-);
 
 -- Гражданство
--- Countries - Citizenship: 1:1
 
 CREATE TABLE IF NOT EXISTS Citizenship (
-    id                  INTEGER  PRIMARY KEY  AUTO_INCREMENT,
+    code                INTEGER PRIMARY KEY  AUTO_INCREMENT,
     version             INTEGER NOT NULL,
-    countries_code      INTEGER,
-    name                VARCHAR(100) NOT NULL /*Российское, украинское и т.д.*/
+    name                VARCHAR(100) NOT NULL
 );
 
-CREATE INDEX IX_Citizenship_Countries_Id ON Citizenship (countries_code);
-ALTER TABLE Citizenship ADD FOREIGN KEY (countries_code) REFERENCES Countries(code);
-
 -- Индекс на users
-CREATE INDEX IX_Users_Citizenship_Id ON Users (citizenship_id);
-ALTER TABLE Users ADD FOREIGN KEY (citizenship_id) REFERENCES Citizenship(id);
+CREATE INDEX IX_Users_Citizenship_Id ON Users (citizenship_code);
+ALTER TABLE Users ADD FOREIGN KEY (citizenship_code) REFERENCES Citizenship(code);
