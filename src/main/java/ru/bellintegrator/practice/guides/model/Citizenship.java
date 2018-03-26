@@ -1,13 +1,6 @@
 package ru.bellintegrator.practice.guides.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Version;
+import javax.persistence.*;
 
 /**
  * Гражданство
@@ -17,8 +10,8 @@ import javax.persistence.Version;
 public class Citizenship {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "code")
+    private Long code;
 
     /**
      * Служебное поле hibernate
@@ -26,29 +19,21 @@ public class Citizenship {
     @Version
     private Integer version;
 
-    /**
-     * Код страны
-     */
-    @Column(name = "countries_code")
-    private Long code;
 
     /**
-     * Наименование гражданства
+     * Наименование
      */
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
 
+
+
+
+
     public Citizenship() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getCode() {
         return code;

@@ -115,7 +115,7 @@ public class User {
     private Office office;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "citizenship_id")
+    @JoinColumn(name = "citizenship_code")
     private Citizenship citizenship;
 
     /**

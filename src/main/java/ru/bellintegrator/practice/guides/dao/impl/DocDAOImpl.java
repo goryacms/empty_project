@@ -5,6 +5,7 @@ import ru.bellintegrator.practice.guides.dao.DocDAO;
 import ru.bellintegrator.practice.guides.model.Doc;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 /**
  * {@inheritDoc}
@@ -21,5 +22,11 @@ public class DocDAOImpl implements DocDAO {
     public Doc loadById(Integer id) {
         Doc doc = em.find(Doc.class, id);
         return doc;
+    }
+
+    @Override
+    public List<Doc> all() {
+        List<Doc> docList = em.createQuery("from Doc").getResultList();
+        return docList;
     }
 }

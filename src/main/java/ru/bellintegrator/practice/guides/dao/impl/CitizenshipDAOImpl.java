@@ -5,6 +5,7 @@ import ru.bellintegrator.practice.guides.dao.CitizenshipDAO;
 import ru.bellintegrator.practice.guides.model.Citizenship;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 
 /**
@@ -19,14 +20,14 @@ public class CitizenshipDAOImpl implements CitizenshipDAO {
     }
 
     @Override
-    public Citizenship loadById(Long id) {
-        Citizenship citiz = em.find(Citizenship.class, id);
+    public Citizenship loadByCode(Long code) {
+        Citizenship citiz = em.find(Citizenship.class, code);
         return citiz;
     }
 
     @Override
-    public Citizenship loadByCode(Long code) {
-        Citizenship citiz = em.find(Citizenship.class, code);
-        return citiz;
+    public List<Citizenship> all() {
+        List<Citizenship> citizList = em.createQuery("from Citizenship").getResultList();
+        return citizList;
     }
 }
