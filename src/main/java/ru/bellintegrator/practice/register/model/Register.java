@@ -1,11 +1,6 @@
 package ru.bellintegrator.practice.register.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Version;
+import javax.persistence.*;
 
 /**
  * Регистрация и авторизация
@@ -13,8 +8,8 @@ import javax.persistence.Version;
 @Entity(name = "Registers")
 public class Register {
     @Id
-    @GeneratedValue
-    @Column(name = "Id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
 
     /**
@@ -42,6 +37,19 @@ public class Register {
      */
     @Column(name = "name")
     private String name;
+
+    /**
+     * Электронная почта
+     */
+    @Column(name = "email")
+    private String email;
+
+
+    @Column(name = "code")
+    private String code;
+
+    @Column(name = "is_active")
+    private boolean isActive;
 
     /**
      * Конструктор для hibernate
@@ -82,4 +90,31 @@ public class Register {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    
+
+    public boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        this.isActive = active;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
 }
