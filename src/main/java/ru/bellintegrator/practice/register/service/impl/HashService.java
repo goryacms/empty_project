@@ -5,7 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
-import java.util.UUID;
+
 
 import org.apache.commons.lang3.RandomStringUtils;
 
@@ -13,20 +13,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 public class HashService {
 
     private String hashCode;
-
-
-    /*
-    public static void main(String[] args) {
-        HashService hs = new HashService();
-        try {
-            String str = hs.generateShortCode();
-            String myVar = hs.generatePasswordHash(str);
-         } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-    }
-    */
-
 
     public String generatePasswordHash(String source) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         MessageDigest encoder = MessageDigest.getInstance("SHA-256");
