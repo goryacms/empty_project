@@ -4,7 +4,8 @@ CREATE TABLE IF NOT EXISTS Registers (
     version          INTEGER NOT NULL,
     login            VARCHAR(10) NOT NULL,
     password         VARCHAR(16) NOT NULL,
-    name             VARCHAR(12)
+    name             VARCHAR(12),
+    email             VARCHAR(12),
 );
 
 CREATE INDEX IX_Register ON Registers (login, password);
