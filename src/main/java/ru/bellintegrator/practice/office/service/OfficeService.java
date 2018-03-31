@@ -12,9 +12,9 @@ public interface OfficeService {
 
     OfficeView loadById(Long id);
 
-    void save(OfficeView office);
+    OfficeView save(OfficeView office);
 
-    void update(OfficeView office);
+    OfficeView update(OfficeView office);
 
-    void delete(OfficeView office);
+    OfficeView delete(OfficeView office);
 }

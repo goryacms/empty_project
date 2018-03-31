@@ -40,9 +40,11 @@ public class UserView {
 
     public Boolean isIdentified;
 
-    public double salary;
+    public Double salary;
 
     public String registrationDate;
+
+    public String result;
 
 
     public UserView() {

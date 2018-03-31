@@ -87,9 +87,11 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void save(User user) {
+    public long save(User user) {
         em.persist(user);
+        em.flush();
         logger.info("User successfully saved. Details: " + user);
+        return user.getId();
     }
 
     @Override

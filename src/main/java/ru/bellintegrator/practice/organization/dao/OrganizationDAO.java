@@ -34,7 +34,7 @@ public interface OrganizationDAO {
      *
      * @param organization
      */
-    void save(Organization organization);
+    long save(Organization organization);
 
     /**
      * Обновить Organization

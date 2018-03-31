@@ -2,6 +2,7 @@ package ru.bellintegrator.practice.organization.view;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
+import org.h2.util.New;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrganizationView {
@@ -21,6 +22,8 @@ public class OrganizationView {
     public String phone;
 
     public Boolean isActive;
+
+    public String result;
 
 
     public OrganizationView() {

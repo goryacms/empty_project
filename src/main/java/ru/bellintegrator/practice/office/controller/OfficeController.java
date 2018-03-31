@@ -31,9 +31,7 @@ public class OfficeController  {
         return officeService.loadById(id);
     }
 
-    /**
-     * TODO: добавить парамаетры; доработать логику в Service
-     */
+
     @ApiOperation(value = "listOffice", nickname = "listOffice", httpMethod = "POST")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = Office.class),
@@ -51,8 +49,8 @@ public class OfficeController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/save", method = {POST})
-    public void addOffice(@RequestBody OfficeView officeView) {
-        officeService.save(officeView);
+    public OfficeView addOffice(@RequestBody OfficeView officeView) {
+        return officeService.save(officeView);
     }
 
     @ApiOperation(value = "updateOffice", nickname = "updOffice", httpMethod = "POST")
@@ -61,8 +59,8 @@ public class OfficeController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/update", method = {POST})
-    public void updOffice(@RequestBody OfficeView officeView) {
-        officeService.update(officeView);
+    public OfficeView updOffice(@RequestBody OfficeView officeView) {
+        return officeService.update(officeView);
     }
 
 
@@ -75,7 +73,7 @@ public class OfficeController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public void delOffice(@RequestBody OfficeView officeView) {
-        officeService.delete(officeView);
+    public OfficeView delOffice(@RequestBody OfficeView officeView) {
+        return officeService.delete(officeView);
     }
 }

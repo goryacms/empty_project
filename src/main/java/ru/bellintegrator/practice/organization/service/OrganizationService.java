@@ -12,9 +12,9 @@ public interface OrganizationService {
 
     OrganizationView loadById(Long id);
 
-    void save(OrganizationView organization);
+    OrganizationView save(OrganizationView organization);
 
-    void update(OrganizationView organization);
+    OrganizationView update(OrganizationView organization);
 
-    void delete(OrganizationView organization);
+    OrganizationView delete(OrganizationView organization);
 }

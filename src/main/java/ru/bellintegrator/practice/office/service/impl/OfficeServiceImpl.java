@@ -86,7 +86,7 @@ public class OfficeServiceImpl implements OfficeService {
 
     @Override
     @Transactional
-    public void save(OfficeView officeView) {
+    public OfficeView save(OfficeView officeView) {
         Office office = new Office();
         office.setName(officeView.name);
         office.setAddress(officeView.address);
@@ -95,11 +95,14 @@ public class OfficeServiceImpl implements OfficeService {
 
         this.dao.save(office);
 
+        OfficeView view = new OfficeView();
+        view.id = office.getId();
+        return view;
     }
 
     @Override
     @Transactional
-    public void update(OfficeView officeView) {
+    public OfficeView update(OfficeView officeView) {
         Office office = new Office();
 
         office.setId(officeView.id);
@@ -109,11 +112,19 @@ public class OfficeServiceImpl implements OfficeService {
         office.setActive(officeView.isActive);
 
         this.dao.update(office);
+
+        OfficeView view = new OfficeView();
+        view.result = "success";
+        return view;
     }
 
     @Override
     @Transactional
-    public void delete(OfficeView office) {
+    public OfficeView delete(OfficeView office) {
         this.dao.delete(office.id);
+
+        OfficeView view = new OfficeView();
+        view.result = "success";
+        return view;
     }
 }

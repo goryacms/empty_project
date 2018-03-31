@@ -23,7 +23,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -123,7 +122,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void save(UserView user) {
+    public UserView save(UserView user) {
         User us = new User();
 
         Office office = daoOffice.loadById(user.officeId);
@@ -160,11 +159,15 @@ public class UserServiceImpl implements UserService {
         us.setCitizenship(citizen);
 
         this.dao.save(us);
+
+        UserView view = new UserView();
+        view.id = us.getId();
+        return view;
     }
 
     @Override
     @Transactional
-    public void update(UserView user) {
+    public UserView update(UserView user) {
         User us = new User();
 
         us.setId(user.id);
@@ -192,12 +195,20 @@ public class UserServiceImpl implements UserService {
         us.setCitizenship(citizen);
 
         this.dao.update(us);
+
+        UserView view = new UserView();
+        view.result = "success";
+        return view;
     }
 
     @Override
     @Transactional
-    public void delete(UserView user) {
+    public UserView delete(UserView user) {
         this.dao.delete(user.id);
+
+        UserView view = new UserView();
+        view.result = "success";
+        return view;
     }
 
     /**

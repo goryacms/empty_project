@@ -9,7 +9,7 @@ import java.util.List;
 public interface RegisterService {
     RegisterView loadByParams(RegisterView registerView);
 
-    void save(RegisterView registerView);
+    RegisterView save(RegisterView registerView);
 
     void update(String code);
 }

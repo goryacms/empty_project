@@ -12,9 +12,9 @@ public interface UserService {
 
     UserView loadById(Long id);
 
-    void save(UserView user);
+    UserView save(UserView user);
 
-    void update(UserView user);
+    UserView update(UserView user);
 
-    void delete(UserView user);
+    UserView delete(UserView user);
 }

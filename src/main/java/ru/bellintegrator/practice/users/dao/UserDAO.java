@@ -35,7 +35,7 @@ public interface UserDAO {
      *
      * @param user
      */
-    void save(User user);
+    long save(User user);
 
     /**
      * Обновить User

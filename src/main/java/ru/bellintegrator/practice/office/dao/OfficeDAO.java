@@ -35,7 +35,7 @@ public interface OfficeDAO {
      *
      * @param office
      */
-    void save(Office office);
+    long save(Office office);
 
     /**
      * Обновить Office

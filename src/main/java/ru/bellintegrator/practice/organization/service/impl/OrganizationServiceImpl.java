@@ -82,7 +82,7 @@ public class OrganizationServiceImpl implements OrganizationService {
      */
     @Override
     @Transactional
-    public void save(OrganizationView orgView) {
+    public OrganizationView save(OrganizationView orgView) {
         Organization org = new Organization();
         org.setName(orgView.name);
         org.setFullName(orgView.fullName);
@@ -93,11 +93,15 @@ public class OrganizationServiceImpl implements OrganizationService {
         org.setActive(orgView.isActive);
 
         this.dao.save(org);
+
+        OrganizationView view = new OrganizationView();
+        view.id = org.getId();
+        return view;
     }
 
     @Override
     @Transactional
-    public void update(OrganizationView orgView) {
+    public OrganizationView update(OrganizationView orgView) {
 
         Organization org = new Organization();
 
@@ -111,11 +115,19 @@ public class OrganizationServiceImpl implements OrganizationService {
         org.setActive(orgView.isActive);
 
         this.dao.update(org);
+
+        OrganizationView view = new OrganizationView();
+        view.result = "success";
+        return view;
     }
 
     @Override
     @Transactional
-    public void delete(OrganizationView organization) {
+    public OrganizationView delete(OrganizationView organization) {
         this.dao.delete(organization.id);
+
+        OrganizationView view = new OrganizationView();
+        view.result = "success";
+        return view;
     }
 }

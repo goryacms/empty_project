@@ -47,15 +47,13 @@ public class RegisterServiceImpl implements RegisterService {
         Register all = dao.loadByParams(reg);
 
         RegisterView view = new RegisterView();
-        view.login = all.getLogin();
-        view.password = all.getPassword();
-
+        view.result = "success";
         return view;
     }
 
     @Override
     @Transactional
-    public void save(RegisterView registerView) {
+    public RegisterView save(RegisterView registerView) {
         Register reg = new Register();
         reg.setLogin(registerView.login);
 
@@ -82,6 +80,10 @@ public class RegisterServiceImpl implements RegisterService {
         }
 
         System.out.println(code);
+
+        RegisterView view = new RegisterView();
+        view.result = "success";
+        return view;
     }
 
 

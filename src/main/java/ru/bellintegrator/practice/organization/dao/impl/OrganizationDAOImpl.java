@@ -75,9 +75,11 @@ public class OrganizationDAOImpl implements OrganizationDAO {
     }
 
     @Override
-    public void save(Organization organization) {
+    public long save(Organization organization) {
         em.persist(organization);
+        em.flush();
         logger.info("Organization successfully saved. Details: " + organization);
+        return organization.getId();
     }
 
     @Override

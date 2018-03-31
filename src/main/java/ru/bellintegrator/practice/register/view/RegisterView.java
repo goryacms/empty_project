@@ -18,6 +18,8 @@ public class RegisterView {
 
     public String code;
 
+    public String result;
+
     public RegisterView() {
     }
 }

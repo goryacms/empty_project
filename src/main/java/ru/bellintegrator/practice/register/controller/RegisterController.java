@@ -32,8 +32,8 @@ public class RegisterController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/login", method = {POST})
-    public void loginRegister(@RequestBody RegisterView regView) {
-        registerService.loadByParams(regView);
+    public RegisterView loginRegister(@RequestBody RegisterView regView) {
+        return registerService.loadByParams(regView);
     }
 
 

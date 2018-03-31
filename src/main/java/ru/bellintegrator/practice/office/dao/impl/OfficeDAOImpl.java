@@ -82,9 +82,11 @@ public class OfficeDAOImpl implements OfficeDAO {
     }
 
     @Override
-    public void save(Office office) {
+    public long save(Office office) {
         em.persist(office);
+        em.flush();
         logger.info("Office successfully saved. Details: " + office);
+        return office.getId();
     }
 
     @Override
