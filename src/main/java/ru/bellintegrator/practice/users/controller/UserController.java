@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.bellintegrator.practice.users.model.User;
 import ru.bellintegrator.practice.users.service.UserService;
+import ru.bellintegrator.practice.users.service.UserValidService;
 import ru.bellintegrator.practice.users.view.UserView;
+import ru.bellintegrator.practice.util.exceptionhandling.ResourceNotFoundException;
+import ru.bellintegrator.practice.util.exceptionhandling.ResourceNotValidException;
 
 import java.util.List;
 
@@ -21,14 +24,23 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class UserController  {
     private UserService userService;
 
+    private UserValidService userValidService;
+
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserValidService userValidService) {
         this.userService = userService;
+        this.userValidService = userValidService;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public UserView userById(@PathVariable("id") Long id) {
-        return userService.loadById(id);
+    public UserView userById(@PathVariable("id") Long id) throws ResourceNotFoundException {
+        UserView usView = userService.loadById(id);
+
+        if(usView == null) {
+            throw new ResourceNotFoundException("Пользователь с идентификатором = " + id + " не найден");
+        }
+
+        return usView;
     }
 
     @ApiOperation(value = "listUser", nickname = "listUser", httpMethod = "POST")
@@ -37,8 +49,16 @@ public class UserController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public List<UserView> users(@RequestBody UserView usView) {
-        return userService.loadByParams(usView);
+    public List<UserView> users(@RequestBody UserView usView) throws ResourceNotValidException, ResourceNotFoundException {
+        if(!userValidService.checkList(usView))
+            throw new ResourceNotValidException("Полученные данные некорректны");
+
+        List<UserView> userList = userService.loadByParams(usView);
+        if(userList == null) {
+            throw new ResourceNotFoundException("Информация по заданным условиям не найдена");
+        }
+
+        return userList;
     }
 
 
@@ -48,7 +68,10 @@ public class UserController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/save", method = {POST})
-    public UserView addUser(@RequestBody UserView userView) {
+    public UserView addUser(@RequestBody UserView userView) throws ResourceNotValidException {
+        if(!userValidService.checkSave(userView))
+            throw new ResourceNotValidException("Полученные данные некорректны");
+
         return userService.save(userView);
     }
 
@@ -58,7 +81,10 @@ public class UserController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/update", method = {POST})
-    public UserView updUser(@RequestBody UserView userView) {
+    public UserView updUser(@RequestBody UserView userView) throws ResourceNotValidException {
+        if(!userValidService.checkUpdate(userView))
+            throw new ResourceNotValidException("Полученные данные некорректны");
+
         return userService.update(userView);
     }
 

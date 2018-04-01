@@ -10,9 +10,9 @@ import ru.bellintegrator.practice.util.Wrapper;
 
 @ControllerAdvice
 public class ExceptionResponse   {
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    public @ResponseBody Wrapper handleException(final Exception exception) {
+    @ExceptionHandler(ResourceNotFoundException.class)
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public @ResponseBody Wrapper handleResourceNotFound(final ResourceNotFoundException exception) {
 
         Wrapper wrap = new Wrapper();
         wrap.setError(exception.getMessage());
@@ -20,9 +20,19 @@ public class ExceptionResponse   {
         return wrap;
     }
 
-    @ExceptionHandler(ResourceNotFoundException.class)
-    @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    public @ResponseBody Wrapper handleResourceNotFound(final Exception exception) {
+    @ExceptionHandler(ResourceNotValidException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public @ResponseBody Wrapper handleResourceNotValid(final ResourceNotValidException exception) {
+
+        Wrapper wrap = new Wrapper();
+        wrap.setError(exception.getMessage());
+
+        return wrap;
+    }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public @ResponseBody Wrapper handleException(final Exception exception) {
 
         Wrapper wrap = new Wrapper();
         wrap.setError(exception.getMessage());

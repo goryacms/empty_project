@@ -15,7 +15,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
-@Scope(proxyMode = ScopedProxyMode.INTERFACES)
 public class OrganizationServiceImpl implements OrganizationService {
     private final OrganizationDAO dao;
 
@@ -75,11 +74,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     }
 
-    /**
-     * TODO: продумать вывод result: success...убрать Boolean во view
-     *       никакого ResponseView тут быть не должно, надо переделать
-     *       ResponseBody в controller
-     */
+
     @Override
     @Transactional
     public OrganizationView save(OrganizationView orgView) {

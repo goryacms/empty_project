@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.bellintegrator.practice.register.model.Register;
 import ru.bellintegrator.practice.register.service.RegisterService;
+import ru.bellintegrator.practice.register.service.RegisterValidService;
 import ru.bellintegrator.practice.register.view.RegisterView;
+import ru.bellintegrator.practice.util.exceptionhandling.ResourceNotFoundException;
+import ru.bellintegrator.practice.util.exceptionhandling.ResourceNotValidException;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -20,9 +23,12 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class RegisterController {
     private RegisterService registerService;
 
+    private RegisterValidService regValidService;
+
     @Autowired
-    public RegisterController(RegisterService registerService) {
+    public RegisterController(RegisterService registerService, RegisterValidService regValidService) {
         this.registerService = registerService;
+        this.regValidService = regValidService;
     }
 
 
@@ -32,8 +38,13 @@ public class RegisterController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/login", method = {POST})
-    public RegisterView loginRegister(@RequestBody RegisterView regView) {
-        return registerService.loadByParams(regView);
+    public RegisterView loginRegister(@RequestBody RegisterView regView) throws ResourceNotFoundException {
+        RegisterView view = registerService.loadByParams(regView);
+
+        if(view == null)
+            throw new ResourceNotFoundException("Данные пользователя не найдены");
+
+        return view;
     }
 
 
@@ -43,12 +54,18 @@ public class RegisterController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/register", method = {POST})
-    public void addRegister(@RequestBody RegisterView regView) {
+    public void addRegister(@RequestBody RegisterView regView) throws ResourceNotValidException {
+        if(!regValidService.checkSave(regView))
+            throw new ResourceNotValidException("Полученные данные некорректны");
+
         registerService.save(regView);
     }
 
     @RequestMapping(value = "/activation", method = {GET})
-    public void checkCode(@RequestParam(name = "code", required = true) String activeCode) {
+    public void checkCode(@RequestParam(name = "code", required = true) String activeCode) throws ResourceNotValidException {
+        if(!regValidService.checkUpdate(activeCode))
+            throw new ResourceNotValidException("Полученные данные некорректны");
+
         registerService.update(activeCode);
     }
 

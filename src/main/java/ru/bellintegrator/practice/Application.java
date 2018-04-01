@@ -38,17 +38,10 @@ import java.util.Locale;
 
 import static springfox.documentation.builders.PathSelectors.regex;
 
-/**
- * TODO: ComponentScan ->  basePackageClasses
- */
+
 @EnableSwagger2
 @ImportResource("spring_mvc_config.xml")
 @SpringBootApplication
-@ComponentScan(basePackageClasses = {OrganizationController.class, OrganizationServiceImpl.class, OrganizationDAOImpl.class,
-                                     OfficeController.class,       OfficeServiceImpl.class,       OfficeDAOImpl.class,
-                                     UserController.class,         UserServiceImpl.class,         UserDAOImpl.class,
-                                     DocDAOImpl.class,             CitizenshipDAOImpl.class,      DocUserDAOImpl.class,
-        DocController.class, DocServiceImpl.class})
 public class Application {
 
     public static void main(String[] args) {
