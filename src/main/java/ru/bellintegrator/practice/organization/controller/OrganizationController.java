@@ -36,18 +36,14 @@ public class OrganizationController  {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public OrganizationView organizationById(@PathVariable(value = "id", required = true) Long id) throws ResourceNotFoundException, NumberFormatException {
-        try {
+    public OrganizationView organizationById(@PathVariable(value = "id", required = true) Long id) throws ResourceNotFoundException {
             OrganizationView orgView = orgService.loadById(id);
 
-            if (orgView == null) {
+            if (orgView == null ) {
                 throw new ResourceNotFoundException("Организация с идентификатором = " + id + " не найдена");
+            }else{
+                return orgView;
             }
-
-            return orgView;
-        }catch (NumberFormatException e){
-            throw new NumberFormatException("Неправильный идентификатор");
-        }
     }
 
     @ApiOperation(value = "listOrganization", nickname = "listOrganization", httpMethod = "POST")
@@ -61,10 +57,12 @@ public class OrganizationController  {
             throw new ResourceNotValidException("Полученные данные некорректны");
 
         List<OrganizationView> orgList = orgService.loadByParams(orgView);
-        if(orgList == null) {
+        if(orgList.size() == 0) {
             throw new ResourceNotFoundException("Информация по заданным условиям не найдена");
         }
+        
         return orgList;
+
     }
 
 

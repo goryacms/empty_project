@@ -54,7 +54,7 @@ public class UserController  {
             throw new ResourceNotValidException("Полученные данные некорректны");
 
         List<UserView> userList = userService.loadByParams(usView);
-        if(userList == null) {
+        if(userList.size() == 0) {
             throw new ResourceNotFoundException("Информация по заданным условиям не найдена");
         }
 

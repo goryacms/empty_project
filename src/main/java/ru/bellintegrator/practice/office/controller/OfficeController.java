@@ -55,7 +55,7 @@ public class OfficeController  {
 
         List<OfficeView> officeList  = officeService.loadByParams(offView);
 
-        if(officeList == null) {
+        if(officeList.size() == 0) {
             throw new ResourceNotFoundException("Информация по заданным условиям не найдена");
         }
 
