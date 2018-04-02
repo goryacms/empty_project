@@ -1,6 +1,7 @@
 package ru.bellintegrator.practice.util.exceptionhandling;
 
-public class ResourceNotValidException  extends Exception {
+public class ResourceNotValidException  extends RuntimeException {
+
     public ResourceNotValidException() {
         super();
     }

@@ -30,7 +30,7 @@ public class ExceptionResponse   {
         return wrap;
     }
 
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(value = {Exception.class})
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public @ResponseBody Wrapper handleException(final Exception exception) {
 
