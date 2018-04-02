@@ -24,12 +24,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class OfficeController  {
     private OfficeService officeService;
 
-    private OfficeValidService officeValidService;
-
     @Autowired
-    public OfficeController(OfficeService officeService, OfficeValidService officeValidService) {
+    public OfficeController(OfficeService officeService) {
         this.officeService = officeService;
-        this.officeValidService = officeValidService;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -49,10 +46,7 @@ public class OfficeController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public List<OfficeView> offices(@RequestBody OfficeView offView) throws ResourceNotValidException, ResourceNotFoundException {
-        if(!officeValidService.checkList(offView))
-            throw new ResourceNotValidException("Полученные данные некорректны");
-
+    public List<OfficeView> offices(@RequestBody OfficeView offView) throws ResourceNotFoundException {
         List<OfficeView> officeList  = officeService.loadByParams(offView);
 
         if(officeList.size() == 0) {
@@ -69,10 +63,7 @@ public class OfficeController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/save", method = {POST})
-    public OfficeView addOffice(@RequestBody OfficeView officeView) throws ResourceNotValidException {
-        if(!officeValidService.checkSave(officeView))
-            throw new ResourceNotValidException("Полученные данные некорректны");
-
+    public OfficeView addOffice(@RequestBody OfficeView officeView) {
         return officeService.save(officeView);
     }
 
@@ -82,17 +73,10 @@ public class OfficeController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/update", method = {POST})
-    public OfficeView updOffice(@RequestBody OfficeView officeView) throws ResourceNotValidException {
-        if(!officeValidService.checkUpdate(officeView))
-            throw new ResourceNotValidException("Полученные данные некорректны");
-
+    public OfficeView updOffice(@RequestBody OfficeView officeView)  {
         return officeService.update(officeView);
     }
 
-
-    /**
-     * TODO: выявить причину почему не работает
-     */
     @ApiOperation(value = "deleteOffice", nickname = "delOffice", httpMethod = "POST")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = Office.class),

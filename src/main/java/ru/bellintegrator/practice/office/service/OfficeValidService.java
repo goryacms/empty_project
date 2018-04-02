@@ -4,10 +4,10 @@ import ru.bellintegrator.practice.office.view.OfficeView;
 
 public interface OfficeValidService {
 
-    boolean checkSave(OfficeView officeView);
+    void checkSave(OfficeView officeView);
 
-    boolean checkUpdate(OfficeView officeView);
+    void checkUpdate(OfficeView officeView);
 
-    boolean checkList(OfficeView officeView);
+    void checkList(OfficeView officeView);
 
 }

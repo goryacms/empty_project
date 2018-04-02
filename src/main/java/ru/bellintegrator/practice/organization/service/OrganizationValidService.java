@@ -4,10 +4,10 @@ import ru.bellintegrator.practice.organization.view.OrganizationView;
 
 public interface OrganizationValidService {
 
-    boolean checkSave(OrganizationView organization);
+    void checkSave(OrganizationView organization);
 
-    boolean checkUpdate(OrganizationView organization);
+    void checkUpdate(OrganizationView organization);
 
-    boolean checkList(OrganizationView organization);
+    void checkList(OrganizationView organization);
 
 }

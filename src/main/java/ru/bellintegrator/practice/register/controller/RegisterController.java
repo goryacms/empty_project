@@ -23,12 +23,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class RegisterController {
     private RegisterService registerService;
 
-    private RegisterValidService regValidService;
-
     @Autowired
-    public RegisterController(RegisterService registerService, RegisterValidService regValidService) {
+    public RegisterController(RegisterService registerService) {
         this.registerService = registerService;
-        this.regValidService = regValidService;
     }
 
 
@@ -55,17 +52,11 @@ public class RegisterController {
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/register", method = {POST})
     public void addRegister(@RequestBody RegisterView regView) throws ResourceNotValidException {
-        if(!regValidService.checkSave(regView))
-            throw new ResourceNotValidException("Полученные данные некорректны");
-
         registerService.save(regView);
     }
 
     @RequestMapping(value = "/activation", method = {GET})
     public void checkCode(@RequestParam(name = "code", required = true) String activeCode) throws ResourceNotValidException {
-        if(!regValidService.checkUpdate(activeCode))
-            throw new ResourceNotValidException("Полученные данные некорректны");
-
         registerService.update(activeCode);
     }
 

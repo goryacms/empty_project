@@ -7,6 +7,7 @@ import ru.bellintegrator.practice.guides.model.Citizenship;
 import ru.bellintegrator.practice.guides.model.Doc;
 import ru.bellintegrator.practice.users.service.UserValidService;
 import ru.bellintegrator.practice.users.view.UserView;
+import ru.bellintegrator.practice.util.exceptionhandling.ResourceNotValidException;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -18,9 +19,13 @@ public class UserValidServiceImpl implements UserValidService {
 
     private CitizenshipDAO citizDAO;
 
-    final static String DATE_FORMAT = "dd-MM-yyyy";
+    private String message;
+
+    final static String DATE_FORMAT = "dd.mm.yyyy";
 
     final static String PHONE_PATT =  "^((8|\\+7)[\\-]?)?(\\(?\\d{2,6}\\)?[\\-]?)?[\\d\\-]{6,10}$";
+
+
 
     public UserValidServiceImpl(DocDAO docDAO, CitizenshipDAO citizDAO) {
         this.docDAO = docDAO;
@@ -28,77 +33,76 @@ public class UserValidServiceImpl implements UserValidService {
     }
 
     @Override
-    public boolean checkSave(UserView userView) {
+    public void checkSave(UserView userView) {
+        message = "";
         if(userView.officeId == null || userView.firstName == null ||
            userView.secondName == null || userView.docCode == null ||
            userView.docNumber == null || userView.docDate == null)
-            return false;
+            message += "Не все обязательные поля заполнены. \n";
 
         Doc doc = docDAO.loadById(userView.docCode);
         if(doc == null)
-            return false;
+            message += "Не найден документ. \n";
 
         if(userView.citizenshipCode != null){
             Citizenship citizen = citizDAO.loadByCode(398L);
             if(citizen == null)
-                return false;
+                message += "Не удалось найти гражданство. \n";
         }
 
-        if(userView.salary != null && userView.salary < 0)
-            return false;
+        if(userView.salary != null & userView.salary < 0)
+            message += "Цена не может быть меньше 0. \n";
 
-        if(userView.registrationDate != null &&  !isDateValid(userView.registrationDate) )
-            return false;
+        if(userView.registrationDate != null &  !isDateValid(userView.registrationDate) )
+            message += "Проверьте дату регистрации. \n";
 
         if(!isDateValid(userView.docDate))
-            return false;
+            message += "Проверьте дату документа. \n";
 
-        if(userView.phone != null && !checkPhone(userView.phone))
-            return false;
+        if(userView.phone != null & !checkPhone(userView.phone))
+            message += "Телефон введён неверно. \n";
 
-
-
-        return true;
+        if(message.length() > 0) throw new ResourceNotValidException(message);
     }
 
     @Override
-    public boolean checkUpdate(UserView userView) {
+    public void checkUpdate(UserView userView) {
+        message = "";
         if(userView.id == null)
-            return false;
+            message += "Не все обязательные поля заполнены. \n";
 
         Doc doc = docDAO.loadById(userView.docCode);
         if(doc == null)
-            return false;
+            message += "Не найден документ. \n";
 
         if(userView.citizenshipCode != null){
             Citizenship citizen = citizDAO.loadByCode(398L);
             if(citizen == null)
-                return false;
+                message += "Не удалось найти гражданство. \n";
         }
 
-        if(userView.salary != null && userView.salary < 0)
-            return false;
+        if(userView.salary != null & userView.salary < 0)
+            message += "Цена не может быть меньше 0. \n";
 
-        if(userView.registrationDate != null &&  !isDateValid(userView.registrationDate) )
-            return false;
+        if(userView.registrationDate != null &  !isDateValid(userView.registrationDate) )
+            message += "Проверьте дату регистрации. \n";
 
         if(!isDateValid(userView.docDate))
-            return false;
+            message += "Проверьте дату документа. \n";
 
-        if(userView.phone != null && !checkPhone(userView.phone))
-            return false;
+        if(userView.phone != null & !checkPhone(userView.phone))
+            message += "Телефон введён неверно. \n";
 
-
-
-        return true;
+        if(message.length() > 0) throw new ResourceNotValidException(message);
     }
 
     @Override
-    public boolean checkList(UserView userView) {
+    public void checkList(UserView userView) {
+        message += "";
         if(userView.officeId == null)
-            return false;
+            message += "Не все обязательные поля заполнены. \n";
 
-        return true;
+        if(message.length() > 0) throw new ResourceNotValidException(message);
     }
 
 
@@ -115,6 +119,10 @@ public class UserValidServiceImpl implements UserValidService {
     }
 
     private boolean checkPhone(String val){
-        return val.matches(PHONE_PATT);
+        try {
+            return val.matches(PHONE_PATT);
+        }catch (Exception e){
+            return false;
+        }
     }
 }

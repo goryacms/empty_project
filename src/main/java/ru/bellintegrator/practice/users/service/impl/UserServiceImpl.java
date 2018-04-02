@@ -16,6 +16,7 @@ import ru.bellintegrator.practice.office.model.Office;
 import ru.bellintegrator.practice.users.dao.UserDAO;
 import ru.bellintegrator.practice.users.model.User;
 import ru.bellintegrator.practice.users.service.UserService;
+import ru.bellintegrator.practice.users.service.UserValidService;
 import ru.bellintegrator.practice.users.view.UserView;
 
 import java.text.ParseException;
@@ -34,16 +35,20 @@ public class UserServiceImpl implements UserService {
     private final DocDAO daoDoc;
     private final DocUserDAO daoDocUser;
 
+    private UserValidService userValidService;
+
     private static final SimpleDateFormat format = new SimpleDateFormat("dd.mm.yyyy");
 
     @Autowired
     public UserServiceImpl(UserDAO dao, OfficeDAO daoOffice, CitizenshipDAO daoCitizenship,
-                           DocDAO daoDoc, DocUserDAO daoDocUser) {
+                           DocDAO daoDoc, DocUserDAO daoDocUser, UserValidService userValidService) {
         this.dao = dao;
         this.daoOffice = daoOffice;
         this.daoCitizenship = daoCitizenship;
         this.daoDoc = daoDoc;
         this.daoDocUser = daoDocUser;
+
+        this.userValidService = userValidService;
     }
 
     @Override
@@ -56,6 +61,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public List<UserView> loadByParams(UserView user) {
+        userValidService.checkList(user);
+
         User us = new User();
 
         Office office = daoOffice.loadById(user.officeId);
@@ -122,6 +129,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserView save(UserView user) {
+        userValidService.checkSave(user);
+
         User us = new User();
 
         Office office = daoOffice.loadById(user.officeId);
@@ -167,6 +176,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserView update(UserView user) {
+        userValidService.checkUpdate(user);
+
         User us = new User();
 
         us.setId(user.id);

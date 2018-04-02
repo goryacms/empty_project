@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.office.dao.OfficeDAO;
 import ru.bellintegrator.practice.office.model.Office;
 import ru.bellintegrator.practice.office.service.OfficeService;
+import ru.bellintegrator.practice.office.service.OfficeValidService;
 import ru.bellintegrator.practice.office.view.OfficeView;
 import ru.bellintegrator.practice.organization.dao.OrganizationDAO;
 import ru.bellintegrator.practice.organization.model.Organization;
@@ -21,18 +22,24 @@ public class OfficeServiceImpl implements OfficeService {
     private final OfficeDAO dao;
     private final OrganizationDAO daoOrg;
 
+    private OfficeValidService officeValidService;
+
     @Autowired
-    public OfficeServiceImpl(OfficeDAO dao, OrganizationDAO daoOrg) {
+    public OfficeServiceImpl(OfficeDAO dao, OrganizationDAO daoOrg, OfficeValidService officeValidService) {
         this.dao    = dao;
         this.daoOrg = daoOrg;
+        this.officeValidService = officeValidService;
     }
-
-
-
 
     @Override
     @Transactional
     public List<OfficeView> loadByParams(OfficeView officeView) {
+        System.out.println("Сработает код 1?");
+
+        officeValidService.checkList(officeView);
+
+        System.out.println("Сработает код 2?");
+
         Office office = new Office();
 
         office.setName(officeView.name);
@@ -86,6 +93,8 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     @Transactional
     public OfficeView save(OfficeView officeView) {
+        officeValidService.checkSave(officeView);
+
         Office office = new Office();
         office.setName(officeView.name);
         office.setAddress(officeView.address);
@@ -102,6 +111,8 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     @Transactional
     public OfficeView update(OfficeView officeView) {
+        officeValidService.checkUpdate(officeView);
+
         Office office = new Office();
 
         office.setId(officeView.id);

@@ -24,12 +24,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class UserController  {
     private UserService userService;
 
-    private UserValidService userValidService;
-
     @Autowired
-    public UserController(UserService userService, UserValidService userValidService) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.userValidService = userValidService;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -49,10 +46,7 @@ public class UserController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public List<UserView> users(@RequestBody UserView usView) throws ResourceNotValidException, ResourceNotFoundException {
-        if(!userValidService.checkList(usView))
-            throw new ResourceNotValidException("Полученные данные некорректны");
-
+    public List<UserView> users(@RequestBody UserView usView) throws ResourceNotFoundException {
         List<UserView> userList = userService.loadByParams(usView);
         if(userList.size() == 0) {
             throw new ResourceNotFoundException("Информация по заданным условиям не найдена");
@@ -68,10 +62,7 @@ public class UserController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/save", method = {POST})
-    public UserView addUser(@RequestBody UserView userView) throws ResourceNotValidException {
-        if(!userValidService.checkSave(userView))
-            throw new ResourceNotValidException("Полученные данные некорректны");
-
+    public UserView addUser(@RequestBody UserView userView){
         return userService.save(userView);
     }
 
@@ -82,9 +73,6 @@ public class UserController  {
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/update", method = {POST})
     public UserView updUser(@RequestBody UserView userView) throws ResourceNotValidException {
-        if(!userValidService.checkUpdate(userView))
-            throw new ResourceNotValidException("Полученные данные некорректны");
-
         return userService.update(userView);
     }
 

@@ -1,6 +1,7 @@
 package ru.bellintegrator.practice.organization.dao;
 
 import ru.bellintegrator.practice.organization.model.Organization;
+import ru.bellintegrator.practice.util.exceptionhandling.ResourceNotFoundException;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public interface OrganizationDAO {
      * @param id
      * @return
      */
-    Organization loadById(Long id);
+    Organization loadById(Long id) ;
 
     /**
      * Сохранить Organization

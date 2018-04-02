@@ -3,41 +3,50 @@ package ru.bellintegrator.practice.organization.service.impl;
 import org.springframework.stereotype.Service;
 import ru.bellintegrator.practice.organization.service.OrganizationValidService;
 import ru.bellintegrator.practice.organization.view.OrganizationView;
+import ru.bellintegrator.practice.util.exceptionhandling.ResourceNotValidException;
 
 @Service
 public class OrganizationValidServiceImpl implements OrganizationValidService {
     // Проверка телефона
     final static String PHONE_PATT =  "^((8|\\+7)[\\-]?)?(\\(?\\d{2,6}\\)?[\\-]?)?[\\d\\-]{6,10}$";
 
+    private String message;
+
     @Override
-    public boolean checkSave(OrganizationView organization) {
+    public void checkSave(OrganizationView organization) {
+        message = "";
+
         if(organization.fullName == null || organization.inn == null ||
            organization.kpp == null || organization.address == null)
-            return false;
+            message += "Не все обязательные поля заполнены. \n";
 
-        if(organization.phone != null && !checkPhone(organization.phone))
-            return false;
+        if(organization.phone != null & !checkPhone(organization.phone))
+            message += "Телефон введён неверно. \n";
 
-        return true;
+        if(message.length() > 0) throw new ResourceNotValidException(message);
     }
 
     @Override
-    public boolean checkUpdate(OrganizationView organization) {
+    public void checkUpdate(OrganizationView organization) {
+        message = "";
+
         if(organization.id == null)
-            return false;
+            message += "Не все обязательные поля заполнены. \n";
 
-        if(organization.phone != null && !checkPhone(organization.phone))
-            return false;
+        if(organization.phone != null & !checkPhone(organization.phone))
+            message += "Телефон введён неверно. \n";
 
-        return true;
+        if(message.length() > 0) throw new ResourceNotValidException(message);
     }
 
     @Override
-    public boolean checkList(OrganizationView organization) {
-        if(organization.name == null)
-            return false;
+    public void checkList(OrganizationView organization) {
+        message = "";
 
-        return true;
+        if(organization.name == null)
+            message += "Не все обязательные поля заполнены. \n";
+
+        if(message.length() > 0) throw new ResourceNotValidException(message);
     }
 
     /**
@@ -45,7 +54,11 @@ public class OrganizationValidServiceImpl implements OrganizationValidService {
      */
     // Может вынести в отдельный класс? Например, в пакет util ?
     private boolean checkPhone(String val){
-        return val.matches(PHONE_PATT);
+        try {
+            return val.matches(PHONE_PATT);
+        }catch (Exception e){
+            return false;
+        }
     }
 
 }

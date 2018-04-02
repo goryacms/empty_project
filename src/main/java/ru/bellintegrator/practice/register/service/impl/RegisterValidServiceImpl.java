@@ -3,22 +3,27 @@ package ru.bellintegrator.practice.register.service.impl;
 import org.springframework.stereotype.Service;
 import ru.bellintegrator.practice.register.service.RegisterValidService;
 import ru.bellintegrator.practice.register.view.RegisterView;
+import ru.bellintegrator.practice.util.exceptionhandling.ResourceNotValidException;
 
 @Service
 public class RegisterValidServiceImpl implements RegisterValidService {
-    @Override
-    public boolean checkSave(RegisterView registerView) {
-        if(registerView.login == null && registerView.password == null)
-            return false;
+    private String message;
 
-        return true;
+    @Override
+    public void checkSave(RegisterView registerView) {
+        message = "";
+        if(registerView.login == null || registerView.password == null)
+            message += "Логин и пароль обязательны для заполнения.";
+
+        if(message.length() > 0) throw new ResourceNotValidException(message);
     }
 
     @Override
-    public boolean checkUpdate(String activeCode) {
+    public void checkUpdate(String activeCode) {
+        message = "";
         if(activeCode == null )
-            return false;
+            message += "Код не может быть пустым. ";
 
-        return true;
+        if(message.length() > 0) throw new ResourceNotValidException(message);
     }
 }

@@ -27,23 +27,22 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class OrganizationController  {
     private OrganizationService orgService;
 
-    private OrganizationValidService orgValidService;
+
 
     @Autowired
-    public OrganizationController(OrganizationService orgService, OrganizationValidService orgValidService) {
+    public OrganizationController(OrganizationService orgService) {
         this.orgService = orgService;
-        this.orgValidService = orgValidService;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public OrganizationView organizationById(@PathVariable(value = "id", required = true) Long id) throws ResourceNotFoundException {
-            OrganizationView orgView = orgService.loadById(id);
+        OrganizationView orgView = orgService.loadById(id);
 
-            if (orgView == null ) {
-                throw new ResourceNotFoundException("Организация с идентификатором = " + id + " не найдена");
-            }else{
-                return orgView;
-            }
+        if (orgView == null ) {
+            throw new ResourceNotFoundException("Организация с идентификатором = " + id + " не найдена");
+        }else{
+            return orgView;
+        }
     }
 
     @ApiOperation(value = "listOrganization", nickname = "listOrganization", httpMethod = "POST")
@@ -52,15 +51,12 @@ public class OrganizationController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public List<OrganizationView> organizations(@RequestBody OrganizationView orgView) throws ResourceNotFoundException, ResourceNotValidException {
-        if(!orgValidService.checkList(orgView))
-            throw new ResourceNotValidException("Полученные данные некорректны");
-
+    public List<OrganizationView> organizations(@RequestBody OrganizationView orgView) throws ResourceNotFoundException {
         List<OrganizationView> orgList = orgService.loadByParams(orgView);
         if(orgList.size() == 0) {
             throw new ResourceNotFoundException("Информация по заданным условиям не найдена");
         }
-        
+
         return orgList;
 
     }
@@ -72,10 +68,7 @@ public class OrganizationController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/save", method = {POST})
-    public OrganizationView addOrganization(@RequestBody OrganizationView orgView) throws ResourceNotValidException {
-        if(!orgValidService.checkSave(orgView))
-            throw new ResourceNotValidException("Полученные данные некорректны");
-
+    public OrganizationView addOrganization(@RequestBody OrganizationView orgView)  {
         return orgService.save(orgView);
     }
 
@@ -85,10 +78,7 @@ public class OrganizationController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/update", method = {POST})
-    public OrganizationView updOrganization(@RequestBody OrganizationView orgView) throws ResourceNotValidException {
-        if(!orgValidService.checkUpdate(orgView))
-            throw new ResourceNotValidException("Полученные данные некорректны");
-
+    public OrganizationView updOrganization(@RequestBody OrganizationView orgView) {
         return orgService.update(orgView);
     }
 

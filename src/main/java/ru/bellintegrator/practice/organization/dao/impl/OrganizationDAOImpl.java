@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.practice.organization.dao.OrganizationDAO;
 import ru.bellintegrator.practice.organization.model.Organization;
+import ru.bellintegrator.practice.util.exceptionhandling.ResourceNotFoundException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -68,7 +69,7 @@ public class OrganizationDAOImpl implements OrganizationDAO {
     }
 
     @Override
-    public Organization loadById(Long id) {
+    public Organization loadById(Long id)  {
         Organization organization = em.find(Organization.class, id);
         logger.info("Organization successfully load by id ("+id+"). Details: " + organization);
         return organization;

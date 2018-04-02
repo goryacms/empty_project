@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.register.dao.RegisterDAO;
 import ru.bellintegrator.practice.register.model.Register;
 import ru.bellintegrator.practice.register.service.RegisterService;
+import ru.bellintegrator.practice.register.service.RegisterValidService;
 import ru.bellintegrator.practice.register.view.RegisterView;
 
 import ru.bellintegrator.practice.register.service.impl.HashService;
@@ -17,15 +18,20 @@ import java.util.List;
 @Service
 public class RegisterServiceImpl implements RegisterService {
     
-    @Autowired
-    HashService hashService;
-
-    public RegisterServiceImpl(RegisterDAO dao, HashService hashService) {
-        this.dao = dao;
-        this.hashService = hashService;
-    }
+    private HashService hashService;
 
     private final RegisterDAO dao;
+
+    private RegisterValidService regValidService;
+
+    @Autowired
+    public RegisterServiceImpl(RegisterDAO dao, HashService hashService, RegisterValidService regValidService) {
+        this.dao = dao;
+        this.hashService = hashService;
+        this.regValidService = regValidService;
+    }
+
+
 
     @Override
     @Transactional
@@ -54,6 +60,8 @@ public class RegisterServiceImpl implements RegisterService {
     @Override
     @Transactional
     public RegisterView save(RegisterView registerView) {
+        regValidService.checkSave(registerView);
+
         Register reg = new Register();
         reg.setLogin(registerView.login);
 
@@ -90,6 +98,8 @@ public class RegisterServiceImpl implements RegisterService {
     @Override
     @Transactional
     public void update(String code) {
+        regValidService.checkUpdate(code);
+
         Register reg = new Register();
         reg.setCode(code);
         reg.setActive(true);

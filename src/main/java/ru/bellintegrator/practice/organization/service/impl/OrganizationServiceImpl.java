@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.organization.dao.OrganizationDAO;
 import ru.bellintegrator.practice.organization.model.Organization;
 import ru.bellintegrator.practice.organization.service.OrganizationService;
+import ru.bellintegrator.practice.organization.service.OrganizationValidService;
 import ru.bellintegrator.practice.organization.view.OrganizationView;
 
 import java.util.List;
@@ -17,15 +18,19 @@ import java.util.stream.Collectors;
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
     private final OrganizationDAO dao;
+    private final OrganizationValidService orgValidService;
 
     @Autowired
-    public OrganizationServiceImpl(OrganizationDAO dao) {
+    public OrganizationServiceImpl(OrganizationDAO dao, OrganizationValidService orgValidService) {
         this.dao = dao;
+        this.orgValidService = orgValidService;
     }
 
     @Override
     @Transactional
     public List<OrganizationView> loadByParams(OrganizationView orgView) {
+        orgValidService.checkList(orgView);
+
         Organization org = new Organization();
         org.setName(orgView.name);
         org.setInn(orgView.inn);
@@ -78,6 +83,8 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     @Transactional
     public OrganizationView save(OrganizationView orgView) {
+        orgValidService.checkSave(orgView);
+
         Organization org = new Organization();
         org.setName(orgView.name);
         org.setFullName(orgView.fullName);
@@ -97,6 +104,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     @Transactional
     public OrganizationView update(OrganizationView orgView) {
+        orgValidService.checkUpdate(orgView);
 
         Organization org = new Organization();
 
