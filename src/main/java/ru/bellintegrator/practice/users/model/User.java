@@ -92,7 +92,7 @@ public class User {
      */
     @Basic(optional = false)
     @Column(name = "salary")
-    private double salary;
+    private Double salary;
 
 
 

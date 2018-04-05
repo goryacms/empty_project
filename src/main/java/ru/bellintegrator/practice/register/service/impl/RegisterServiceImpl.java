@@ -10,6 +10,7 @@ import ru.bellintegrator.practice.register.service.RegisterValidService;
 import ru.bellintegrator.practice.register.view.RegisterView;
 
 import ru.bellintegrator.practice.register.service.impl.HashService;
+import ru.bellintegrator.practice.util.exceptionhandling.ResourceNotFoundException;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -52,6 +53,9 @@ public class RegisterServiceImpl implements RegisterService {
 
         Register all = dao.loadByParams(reg);
 
+        if(all == null)
+            throw new ResourceNotFoundException("Данные пользователя не найдены");
+
         RegisterView view = new RegisterView();
         view.result = "success";
         return view;
@@ -87,6 +91,7 @@ public class RegisterServiceImpl implements RegisterService {
             this.dao.save(reg);
         }
 
+        // Будет возвращать пустой JSON {} по причина system.out.println
         System.out.println(code);
 
         RegisterView view = new RegisterView();
@@ -105,7 +110,6 @@ public class RegisterServiceImpl implements RegisterService {
         reg.setActive(true);
 
         this.dao.update(reg);
-
     }
 
 }

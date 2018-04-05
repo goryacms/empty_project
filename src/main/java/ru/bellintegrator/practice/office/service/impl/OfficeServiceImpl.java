@@ -1,8 +1,6 @@
 package ru.bellintegrator.practice.office.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.office.dao.OfficeDAO;
@@ -12,6 +10,7 @@ import ru.bellintegrator.practice.office.service.OfficeValidService;
 import ru.bellintegrator.practice.office.view.OfficeView;
 import ru.bellintegrator.practice.organization.dao.OrganizationDAO;
 import ru.bellintegrator.practice.organization.model.Organization;
+import ru.bellintegrator.practice.util.exceptionhandling.ResourceNotFoundException;
 
 import java.util.List;
 import java.util.function.Function;
@@ -22,7 +21,7 @@ public class OfficeServiceImpl implements OfficeService {
     private final OfficeDAO dao;
     private final OrganizationDAO daoOrg;
 
-    private OfficeValidService officeValidService;
+    private final OfficeValidService officeValidService;
 
     @Autowired
     public OfficeServiceImpl(OfficeDAO dao, OrganizationDAO daoOrg, OfficeValidService officeValidService) {
@@ -34,11 +33,7 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     @Transactional
     public List<OfficeView> loadByParams(OfficeView officeView) {
-        System.out.println("Сработает код 1?");
-
         officeValidService.checkList(officeView);
-
-        System.out.println("Сработает код 2?");
 
         Office office = new Office();
 
@@ -52,6 +47,10 @@ public class OfficeServiceImpl implements OfficeService {
 
 
         List<Office> all = dao.loadByParams(office);
+
+        if(all.size() == 0) {
+            throw new ResourceNotFoundException("Информация по заданным условиям не найдена");
+        }
 
         Function<Office, OfficeView> mapOffice = p -> {
             OfficeView view = new OfficeView();
@@ -79,6 +78,9 @@ public class OfficeServiceImpl implements OfficeService {
     @Transactional
     public OfficeView loadById(Long id) {
         Office p = this.dao.loadById(id);
+
+        if(p == null)
+            throw new ResourceNotFoundException("Офис с идентификатором = " + id + " не найден");
 
         OfficeView view = new OfficeView();
         view.id = p.getId();

@@ -5,6 +5,7 @@ import ru.bellintegrator.practice.guides.dao.CitizenshipDAO;
 import ru.bellintegrator.practice.guides.model.Citizenship;
 import ru.bellintegrator.practice.guides.service.CitizenshipService;
 import ru.bellintegrator.practice.guides.view.CitizenshipView;
+import ru.bellintegrator.practice.util.exceptionhandling.ResourceNotFoundException;
 
 import java.util.List;
 import java.util.function.Function;
@@ -21,6 +22,10 @@ public class CitizenshipServiceImpl implements CitizenshipService {
     @Override
     public List<CitizenshipView> all() {
         List<Citizenship> all = dao.all();
+
+        if(all.size() == 0) {
+            throw new ResourceNotFoundException("Информация не найдена");
+        }
 
         Function<Citizenship, CitizenshipView> mapCit = p -> {
             CitizenshipView view = new CitizenshipView();

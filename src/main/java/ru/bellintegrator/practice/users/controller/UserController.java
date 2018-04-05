@@ -10,6 +10,7 @@ import ru.bellintegrator.practice.users.model.User;
 import ru.bellintegrator.practice.users.service.UserService;
 import ru.bellintegrator.practice.users.service.UserValidService;
 import ru.bellintegrator.practice.users.view.UserView;
+import ru.bellintegrator.practice.util.exceptionhandling.ResourceInternalException;
 import ru.bellintegrator.practice.util.exceptionhandling.ResourceNotFoundException;
 import ru.bellintegrator.practice.util.exceptionhandling.ResourceNotValidException;
 
@@ -30,14 +31,13 @@ public class UserController  {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public UserView userById(@PathVariable("id") Long id) throws ResourceNotFoundException {
-        UserView usView = userService.loadById(id);
-
-        if(usView == null) {
-            throw new ResourceNotFoundException("Пользователь с идентификатором = " + id + " не найден");
+    public UserView userById(@PathVariable("id") Long id) throws Exception {
+        try{
+            UserView usView = userService.loadById(id);
+            return usView;
+        }catch(ResourceInternalException e){
+            throw new ResourceInternalException("Во время поиска информации произошла ошибка. Пожалуйста, обратитесь в службу поддержки");
         }
-
-        return usView;
     }
 
     @ApiOperation(value = "listUser", nickname = "listUser", httpMethod = "POST")
@@ -46,13 +46,13 @@ public class UserController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public List<UserView> users(@RequestBody UserView usView) throws ResourceNotFoundException {
-        List<UserView> userList = userService.loadByParams(usView);
-        if(userList.size() == 0) {
-            throw new ResourceNotFoundException("Информация по заданным условиям не найдена");
+    public List<UserView> users(@RequestBody UserView usView) throws Exception {
+        try{
+            List<UserView> userList = userService.loadByParams(usView);
+            return userList;
+        }catch(ResourceInternalException e){
+            throw new ResourceInternalException("Во время сохранения информации произошла ошибка. Пожалуйста, обратитесь в службу поддержки");
         }
-
-        return userList;
     }
 
 
@@ -62,8 +62,12 @@ public class UserController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/save", method = {POST})
-    public UserView addUser(@RequestBody UserView userView){
-        return userService.save(userView);
+    public UserView addUser(@RequestBody UserView userView) throws Exception {
+        try{
+            return userService.save(userView);
+        }catch(ResourceInternalException e){
+            throw new ResourceInternalException("Во время сохранения информации произошла ошибка. Пожалуйста, обратитесь в службу поддержки");
+        }
     }
 
     @ApiOperation(value = "updateUser", nickname = "updUser", httpMethod = "POST")
@@ -72,8 +76,12 @@ public class UserController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/update", method = {POST})
-    public UserView updUser(@RequestBody UserView userView) throws ResourceNotValidException {
-        return userService.update(userView);
+    public UserView updUser(@RequestBody UserView userView) throws Exception {
+        try{
+            return userService.update(userView);
+        }catch(ResourceInternalException e){
+            throw new ResourceInternalException("Во время обновления информации произошла ошибка. Пожалуйста, обратитесь в службу поддержки");
+        }
     }
 
 
@@ -83,7 +91,11 @@ public class UserController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public UserView delUser(@RequestBody UserView userView) {
-        return userService.delete(userView);
+    public UserView delUser(@RequestBody UserView userView) throws Exception {
+        try{
+            return userService.delete(userView);
+        }catch(ResourceInternalException e){
+            throw new ResourceInternalException("Во время удаления информации произошла ошибка. Пожалуйста, обратитесь в службу поддержки");
+        }
     }
 }

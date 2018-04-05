@@ -6,6 +6,7 @@ import ru.bellintegrator.practice.guides.model.Doc;
 import ru.bellintegrator.practice.guides.service.DocService;
 import ru.bellintegrator.practice.guides.view.DocView;
 import ru.bellintegrator.practice.office.view.OfficeView;
+import ru.bellintegrator.practice.util.exceptionhandling.ResourceNotFoundException;
 
 import java.util.List;
 import java.util.function.Function;
@@ -22,6 +23,11 @@ public class DocServiceImpl implements DocService{
     @Override
     public List<DocView> all() {
         List<Doc> all = dao.all();
+
+        if(all.size() == 0) {
+            throw new ResourceNotFoundException("Информация не найдена");
+        }
+
         Function<Doc, DocView> mapDoc = p -> {
             DocView view = new DocView();
             view.code = p.getId();

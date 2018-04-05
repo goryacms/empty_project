@@ -81,7 +81,8 @@ public class UserValidServiceImpl implements UserValidService {
                 message += "Не удалось найти гражданство. \n";
         }
 
-        if(userView.salary != null & userView.salary < 0)
+        Double sal = userView.salary != null ? userView.salary : 0.00;
+        if(sal < 0.00)
             message += "Цена не может быть меньше 0. \n";
 
         if(userView.registrationDate != null &  !isDateValid(userView.registrationDate) )

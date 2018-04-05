@@ -31,7 +31,7 @@ public class OrganizationView {
 
     @Override
     public String toString() {
-        return "{" +
+        return "data:{" +
                 "id:" + id +
                 ";name:" + name +
                 ";fullName:" + fullName +

@@ -10,6 +10,7 @@ import ru.bellintegrator.practice.register.model.Register;
 import ru.bellintegrator.practice.register.service.RegisterService;
 import ru.bellintegrator.practice.register.service.RegisterValidService;
 import ru.bellintegrator.practice.register.view.RegisterView;
+import ru.bellintegrator.practice.util.exceptionhandling.ResourceInternalException;
 import ru.bellintegrator.practice.util.exceptionhandling.ResourceNotFoundException;
 import ru.bellintegrator.practice.util.exceptionhandling.ResourceNotValidException;
 
@@ -35,13 +36,13 @@ public class RegisterController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/login", method = {POST})
-    public RegisterView loginRegister(@RequestBody RegisterView regView) throws ResourceNotFoundException {
-        RegisterView view = registerService.loadByParams(regView);
-
-        if(view == null)
-            throw new ResourceNotFoundException("Данные пользователя не найдены");
-
-        return view;
+    public RegisterView loginRegister(@RequestBody RegisterView regView) throws Exception {
+        try{
+            RegisterView view = registerService.loadByParams(regView);
+            return view;
+        }catch(ResourceInternalException e){
+            throw new ResourceInternalException("Во поиска логина и пароля произошла ошибка. Пожалуйста, обратитесь в службу поддержки");
+        }
     }
 
 
@@ -51,13 +52,21 @@ public class RegisterController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/register", method = {POST})
-    public void addRegister(@RequestBody RegisterView regView) throws ResourceNotValidException {
-        registerService.save(regView);
+    public void addRegister(@RequestBody RegisterView regView) throws Exception {
+        try {
+            registerService.save(regView);
+        }catch(ResourceInternalException e){
+            throw new ResourceInternalException("При регистрации произошла ошибка. Пожалуйста, обратитесь в службу поддержки или повторите попытку позже");
+        }
     }
 
     @RequestMapping(value = "/activation", method = {GET})
-    public void checkCode(@RequestParam(name = "code", required = true) String activeCode) throws ResourceNotValidException {
-        registerService.update(activeCode);
+    public void checkCode(@RequestParam(name = "code", required = true) String activeCode) throws Exception {
+        try{
+            registerService.update(activeCode);
+        }catch(ResourceInternalException e){
+            throw new ResourceInternalException("При подтверждении регистрации произошла ошибка. Пожалуйста, обратитесь в службу поддержки ");
+        }
     }
 
 }

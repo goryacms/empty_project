@@ -18,6 +18,7 @@ import ru.bellintegrator.practice.users.model.User;
 import ru.bellintegrator.practice.users.service.UserService;
 import ru.bellintegrator.practice.users.service.UserValidService;
 import ru.bellintegrator.practice.users.view.UserView;
+import ru.bellintegrator.practice.util.exceptionhandling.ResourceNotFoundException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -79,6 +80,10 @@ public class UserServiceImpl implements UserService {
 
         List<User> all = dao.loadByParams(us);
 
+        if(all.size() == 0) {
+            throw new ResourceNotFoundException("Информация по заданным условиям не найдена");
+        }
+
         Function<User, UserView> mapUser = p -> {
             UserView view = new UserView();
             view.id         = p.getId();
@@ -98,6 +103,10 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserView loadById(Long id) {
         User us = this.dao.loadById(id);
+
+        if(us == null) {
+            throw new ResourceNotFoundException("Пользователь с идентификатором = " + id + " не найден");
+        }
 
         UserView view = new UserView();
         view.id = us.getId();
@@ -140,19 +149,15 @@ public class UserServiceImpl implements UserService {
         us.setMiddleName(user.middleName);
         us.setLastName(user.secondName);
         us.setPosition(user.position);
-        us.setSalary(user.salary);
 
-        /**
-         * TODO: user.registrationDate --> nullPointerException
-         */
+        Double sal = user.salary != null ? user.salary : 0.00;
+        us.setSalary(sal);
+
         us.setRegistrationDate(getDate(user.registrationDate));
         us.setPhone(user.phone);
 
         DocUser docUser = new DocUser();
 
-        /**
-         * TODO: user.docDate --> nullPointerException
-         */
         docUser.setDocDate(getDate(user.docDate));
 
         docUser.setDocNumber(user.docNumber);
@@ -160,9 +165,7 @@ public class UserServiceImpl implements UserService {
         Doc doc = daoDoc.loadById(user.docCode);
         docUser.setDocs(doc);
 
-        /**
-         * TODO: user.citizenshipCode --> nullPointerException
-         */
+
         Citizenship citizen = daoCitizenship.loadByCode(user.citizenshipCode);
         us.setCitizenship(citizen);
 
@@ -185,7 +188,10 @@ public class UserServiceImpl implements UserService {
         us.setMiddleName(user.middleName);
         us.setLastName(user.secondName);
         us.setPosition(user.position);
-        us.setSalary(user.salary);
+
+
+        Double sal = user.salary != null ? user.salary : 0.00;
+        us.setSalary(sal);
 
 
         us.setRegistrationDate(getDate(user.registrationDate));
@@ -230,7 +236,6 @@ public class UserServiceImpl implements UserService {
         try {
             outDate = format.parse(strDate);
         } catch (ParseException e) {
-            e.printStackTrace();
             return null;
         }
         return outDate;

@@ -6,10 +6,11 @@ import ru.bellintegrator.practice.office.view.OfficeView;
 import ru.bellintegrator.practice.util.exceptionhandling.ResourceNotValidException;
 
 @Service
-public class OfficeValidServiceImpl implements OfficeValidService {
-    final static String PHONE_PATT =  "^((8|\\+7)[\\-]?)?(\\(?\\d{2,6}\\)?[\\-]?)?[\\d\\-]{6,10}$";
+public class OfficeValidServiceImpl implements OfficeValidService{
+    private final static String PHONE_PATT =  "^((8|\\+7)[\\-]?)?(\\(?\\d{2,6}\\)?[\\-]?)?[\\d\\-]{6,10}$";
 
     private String message;
+
 
     @Override
     public void checkSave(OfficeView officeView) {

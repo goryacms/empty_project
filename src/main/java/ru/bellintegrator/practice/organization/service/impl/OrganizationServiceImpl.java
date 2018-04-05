@@ -1,8 +1,6 @@
 package ru.bellintegrator.practice.organization.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.organization.dao.OrganizationDAO;
@@ -10,6 +8,7 @@ import ru.bellintegrator.practice.organization.model.Organization;
 import ru.bellintegrator.practice.organization.service.OrganizationService;
 import ru.bellintegrator.practice.organization.service.OrganizationValidService;
 import ru.bellintegrator.practice.organization.view.OrganizationView;
+import ru.bellintegrator.practice.util.exceptionhandling.ResourceNotFoundException;
 
 import java.util.List;
 import java.util.function.Function;
@@ -38,6 +37,10 @@ public class OrganizationServiceImpl implements OrganizationService {
 
         List<Organization> all = dao.loadByParams(org);
 
+        if(all.size() == 0) {
+            throw new ResourceNotFoundException("Информация по заданным условиям не найдена");
+        }
+
         Function<Organization, OrganizationView> mapOrg = p -> {
             OrganizationView view = new OrganizationView();
             view.id = p.getId();
@@ -65,18 +68,20 @@ public class OrganizationServiceImpl implements OrganizationService {
     public OrganizationView loadById(Long id) {
         Organization p = this.dao.loadById(id);
 
-            OrganizationView view = new OrganizationView();
-            view.id = p.getId();
-            view.name = p.getName();
-            view.fullName = p.getFullName();
-            view.inn = p.getInn();
-            view.kpp = p.getKpp();
-            view.address = p.getAddress();
-            view.phone = p.getPhone();
-            view.isActive = p.getActive();
+        if(p == null)
+            throw new ResourceNotFoundException("Организация с идентификатором = " + id + " не найдена");
 
-            return view;
+        OrganizationView view = new OrganizationView();
 
+        view.id = p.getId();
+        view.name = p.getName();
+        view.fullName = p.getFullName();
+        view.inn = p.getInn();
+        view.kpp = p.getKpp();
+        view.address = p.getAddress();
+        view.phone = p.getPhone();
+        view.isActive = p.getActive();
+        return view;
     }
 
 
