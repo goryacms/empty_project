@@ -30,7 +30,7 @@ public class ExceptionResponse   {
         return wrap;
     }
 
-    @ExceptionHandler(value = {Exception.class})
+    /*@ExceptionHandler(value = {Exception.class})
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public @ResponseBody Wrapper handleException(final Exception exception) {
 
@@ -38,5 +38,16 @@ public class ExceptionResponse   {
         wrap.setError(exception.getMessage());
 
         return wrap;
+    }*/
+
+    @ExceptionHandler(value = {ResourceInternalException.class})
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public @ResponseBody Wrapper handleInternalException(final ResourceInternalException exception) {
+
+        Wrapper wrap = new Wrapper();
+        wrap.setError(exception.getMessage());
+
+        return wrap;
     }
+
 }
