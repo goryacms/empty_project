@@ -2,10 +2,12 @@
 CREATE TABLE IF NOT EXISTS Registers (
     id               BIGINT  PRIMARY KEY AUTO_INCREMENT,
     version          INTEGER NOT NULL,
-    login            VARCHAR(10) NOT NULL,
-    password         VARCHAR(16) NOT NULL,
+    login            VARCHAR(12) NOT NULL,
+    password         VARCHAR(100) NOT NULL,
     name             VARCHAR(12),
-    email             VARCHAR(12),
+    email            VARCHAR(24),
+    code             VARCHAR(12),
+    is_active        BOOLEAN
 );
 
 CREATE INDEX IX_Register ON Registers (login, password);
@@ -16,13 +18,13 @@ CREATE INDEX IX_Register ON Registers (login, password);
 CREATE TABLE IF NOT EXISTS Organization (
     id               BIGINT PRIMARY KEY AUTO_INCREMENT,
     version          INTEGER NOT NULL,
-    name             VARCHAR(75) NOT NULL,
-    full_name        VARCHAR(200),
+    name             VARCHAR(75) ,
+    full_name        VARCHAR(200) ,
     inn              BIGINT NOT NULL,
     kpp              BIGINT NOT NULL,
     address          VARCHAR(100),
     phone            VARCHAR(15),
-    is_active        BOOLEAN NOT NULL
+    is_active        BOOLEAN
 );
 
 CREATE INDEX IX_Organization_List1 ON Organization (name, inn, is_active);
