@@ -63,8 +63,10 @@ CREATE TABLE IF NOT EXISTS Users (
 
     citizenship_code  BIGINT,
 
-    is_identified    BOOLEAN NOT NULL
+    is_identified    BOOLEAN
 );
+
+
 
 CREATE INDEX IX_User_List1 ON Users (first_name, last_name, middle_name);
 CREATE INDEX IX_User_List2 ON Users (position);
@@ -95,7 +97,6 @@ CREATE INDEX IX_DocsUsers_Users_Id ON Docs_Users (user_id);
 CREATE INDEX IX_DocsUsers_Docs_Id ON Docs_Users (doc_code);
 ALTER TABLE Docs_Users ADD FOREIGN KEY (user_id) REFERENCES Users(id);
 ALTER TABLE Docs_Users ADD FOREIGN KEY (doc_code) REFERENCES Docs(code);
-
 
 
 -- Гражданство

@@ -150,6 +150,8 @@ INSERT INTO Docs_Users (id,version,user_id,doc_code,doc_date, doc_number)
 VALUES (9,0,9,21 , PARSEDATETIME('21.12.2015', 'dd.mm.yyyy'), 89464647631);
 INSERT INTO Docs_Users (id,version,user_id,doc_code,doc_date, doc_number)
 VALUES (10,0,10,7, PARSEDATETIME('20.10.2007', 'dd.mm.yyyy'), 6843161613);
+
+
 INSERT INTO Docs_Users (id,version,user_id,doc_code,doc_date, doc_number)
 VALUES (11,0,11,7, PARSEDATETIME('20.10.2007', 'dd.mm.yyyy'), 316564565654);
 INSERT INTO Docs_Users (id,version,user_id,doc_code,doc_date, doc_number)
@@ -171,7 +173,4 @@ VALUES (19,0,19,21, PARSEDATETIME('20.10.2007', 'dd.mm.yyyy'), 216846512154);
 
 INSERT INTO Docs_Users (id,version,user_id,doc_code,doc_date, doc_number)
 VALUES (20,0,20,21, PARSEDATETIME('20.10.2007', 'dd.mm.yyyy'), 7851412121154);
-INSERT INTO Docs_Users (id,version,user_id,doc_code,doc_date, doc_number)
-VALUES (21,0,20,3, PARSEDATETIME('21.10.2007', 'dd.mm.yyyy'), 70000046654);
-INSERT INTO Docs_Users (id,version,user_id,doc_code,doc_date, doc_number)
-VALUES (22,0,20,7, PARSEDATETIME('22.10.2007', 'dd.mm.yyyy'), 122000000001);
+
