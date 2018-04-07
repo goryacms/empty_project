@@ -39,6 +39,7 @@ public class OfficeServiceImpl implements OfficeService {
 
         office.setName(officeView.name);
         office.setPhone(officeView.phone);
+
         office.setActive(officeView.isActive);
 
         Organization org = daoOrg.loadById(officeView.orgId);

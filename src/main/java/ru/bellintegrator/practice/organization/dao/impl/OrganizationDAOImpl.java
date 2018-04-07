@@ -42,7 +42,8 @@ public class OrganizationDAOImpl implements OrganizationDAO {
 
         p = cb.like((c.get("name")), "%"+organization.getName()+"%");
 
-        p = cb.and(p, cb.equal((c.get("isActive")), organization.getActive()));
+        if(organization.getActive() != null )
+            p = cb.and(p, cb.equal((c.get("isActive")), organization.getActive()));
 
         if(organization.getInn() != null)
             p = cb.and(p, cb.equal((c.get("inn")), organization.getInn()));

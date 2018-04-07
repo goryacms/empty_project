@@ -66,7 +66,7 @@ public class Organization {
      */
     @Basic(optional = false)
     @Column(name = "is_active")
-    private boolean isActive;
+    private Boolean isActive;
 
 
     @OneToMany(
@@ -167,11 +167,11 @@ public class Organization {
         this.phone = phone;
     }
 
-    public boolean getActive() {
+    public Boolean getActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         isActive = active;
     }
 

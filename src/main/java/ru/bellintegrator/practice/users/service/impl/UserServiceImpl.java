@@ -189,9 +189,8 @@ public class UserServiceImpl implements UserService {
         us.setLastName(user.secondName);
         us.setPosition(user.position);
 
-
-        Double sal = user.salary != null ? user.salary : 0.00;
-        us.setSalary(sal);
+        if(user.salary != null)
+            us.setSalary(user.salary);
 
 
         us.setRegistrationDate(getDate(user.registrationDate));
