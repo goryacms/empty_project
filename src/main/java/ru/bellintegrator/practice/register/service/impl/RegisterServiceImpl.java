@@ -10,6 +10,7 @@ import ru.bellintegrator.practice.register.service.RegisterValidService;
 import ru.bellintegrator.practice.register.view.RegisterView;
 
 import ru.bellintegrator.practice.register.service.impl.HashService;
+import ru.bellintegrator.practice.util.exceptionhandling.ResourceInternalException;
 import ru.bellintegrator.practice.util.exceptionhandling.ResourceNotFoundException;
 
 import java.io.UnsupportedEncodingException;
@@ -40,12 +41,7 @@ public class RegisterServiceImpl implements RegisterService {
         Register reg = new Register();
         reg.setLogin(regView.login);
 
-        String password = null;
-        try {
-            password = hashService.generatePasswordHash(regView.password);
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        String password = formHashPassword(regView.password);
 
         reg.setPassword(password);
 
@@ -69,12 +65,7 @@ public class RegisterServiceImpl implements RegisterService {
         Register reg = new Register();
         reg.setLogin(registerView.login);
 
-        String password = null;
-        try {
-            password = hashService.generatePasswordHash(registerView.password);
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        String password = formHashPassword(registerView.password);
 
         reg.setPassword(password);
         reg.setEmail(registerView.email);
@@ -99,7 +90,6 @@ public class RegisterServiceImpl implements RegisterService {
         return view;
     }
 
-
     @Override
     @Transactional
     public void update(String code) {
@@ -110,6 +100,14 @@ public class RegisterServiceImpl implements RegisterService {
         reg.setActive(true);
 
         this.dao.update(reg);
+    }
+
+    private String formHashPassword(String psw){
+        try {
+            return hashService.generatePasswordHash(psw);
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+            throw new ResourceInternalException("При сохранении пароля возникла ошибка");
+        }
     }
 
 }
