@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import ru.bellintegrator.practice.guides.model.DocUser;
 import ru.bellintegrator.practice.users.dao.UserDAO;
 import ru.bellintegrator.practice.users.model.User;
 
@@ -14,6 +15,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.Set;
 
 /**
  * {@inheritDoc}
@@ -33,6 +35,10 @@ public class UserDAOImpl implements UserDAO {
     @Override
     @SuppressWarnings("unchecked")
     public List<User> loadByParams(User user) {
+
+        logger.info("щаашсу шв: " + user.getOffice().getId());
+
+
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<User> q = cb.createQuery(User.class);
         Root<User> c = q.from(User.class);
@@ -42,19 +48,19 @@ public class UserDAOImpl implements UserDAO {
         p = cb.equal((c.get("office").get("id")), user.getOffice().getId());
 
         if(user.getFirstName() != null)
-            p = cb.and(cb.like((c.get("firstName")), "%"+user.getFirstName()+"%"));
+            p = cb.and(p, cb.like((c.get("firstName")), "%"+user.getFirstName()+"%"));
 
         if(user.getLastName() != null)
-            p = cb.and(cb.like((c.get("lastName")), "%"+user.getLastName()+"%"));
+            p = cb.and(p, cb.like((c.get("lastName")), "%"+user.getLastName()+"%"));
 
         if(user.getMiddleName() != null)
-            p = cb.and(cb.like((c.get("middleName")), "%"+user.getMiddleName()+"%"));
+            p = cb.and(p, cb.like((c.get("middleName")), "%"+user.getMiddleName()+"%"));
 
         if(user.getPosition() != null)
-            p = cb.and(cb.like((c.get("position")), "%"+user.getPosition()+"%"));
+            p = cb.and(p, cb.like((c.get("position")), "%"+user.getPosition()+"%"));
 
         if(user.getCitizenship() != null)
-            p = cb.and(cb.equal((c.get("citizenship").get("code")), user.getCitizenship().getCode()));
+            p = cb.and(p, cb.equal((c.get("citizenship").get("code")), user.getCitizenship().getCode()));
 
         q.select(c).where(p);
 
@@ -88,8 +94,18 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public long save(User user) {
+
+
         em.persist(user);
+
+/*
+        em.persist(user.getDocUser());
+        logger.info("DocUser successfully saved. Details: " + user.getDocUser());
+*/
         em.flush();
+
+
+
         logger.info("User successfully saved. Details: " + user);
         return user.getId();
     }
@@ -106,7 +122,9 @@ public class UserDAOImpl implements UserDAO {
         user1.setRegistrationDate(user.getRegistrationDate());
         user1.setPhone(user.getPhone());
 
-        user1.setDocUsers(user.getDocUsers());
+        //user1.setDocUsers(user.getDocUsers());
+        user1.setDocUser(user.getDocUser());
+
 
         user1.setCitizenship(user.getCitizenship());
 

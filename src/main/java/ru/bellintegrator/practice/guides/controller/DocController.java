@@ -35,11 +35,7 @@ public class DocController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/docs", method = RequestMethod.POST)
-    public List<DocView> docs() throws Exception {
-        try{
+    public List<DocView> docs() {
             return docService.all();
-        }catch(ResourceInternalException e){
-            throw new ResourceInternalException("При поиске информации произошла ошибка. Пожалуйста, обратитесь в службу поддержки");
-        }
     }
 }

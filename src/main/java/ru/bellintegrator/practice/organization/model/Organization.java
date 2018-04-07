@@ -68,7 +68,6 @@ public class Organization {
     @Column(name = "is_active")
     private Boolean isActive;
 
-
     @OneToMany(
             mappedBy = "organization",
             cascade = CascadeType.ALL,
@@ -176,4 +175,11 @@ public class Organization {
     }
 
 
+    public List<Office> getOffices() {
+        return offices;
+    }
+
+    public void setOffices(List<Office> offices) {
+        this.offices = offices;
+    }
 }

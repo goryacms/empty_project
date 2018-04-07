@@ -3,18 +3,7 @@ package ru.bellintegrator.practice.guides.model;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Version;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 import ru.bellintegrator.practice.users.model.User;
 /**
@@ -35,9 +24,10 @@ public class DocUser {
     private Integer version;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doc_code")
@@ -57,6 +47,21 @@ public class DocUser {
 
 
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("{id:");
+        builder.append(getId());
+        builder.append(";docDate:");
+        builder.append(getDocDate());
+        builder.append(";docNumber:");
+        builder.append(getDocNumber());
+        builder.append("}");
+
+        return builder.toString();
+    }
+
+
     public Long getId() {
         return id;
     }
@@ -65,21 +70,20 @@ public class DocUser {
         this.id = id;
     }
 
-
-    public User getUsers() {
-        return user;
-    }
-
-    public void setUsers(User users) {
-        this.user = users;
-    }
-
-    public Doc getDocs() {
+    public Doc getDoc() {
         return doc;
     }
 
-    public void setDocs(Doc docs) {
-        this.doc = docs;
+    public void setDoc(Doc doc) {
+        this.doc = doc;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Date getDocDate() {

@@ -25,6 +25,8 @@ public class OrganizationView {
 
     public String result;
 
+    public Integer officesCount;
+
 
     public OrganizationView() {
     }

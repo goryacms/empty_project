@@ -11,6 +11,7 @@ import ru.bellintegrator.practice.guides.dao.DocUserDAO;
 import ru.bellintegrator.practice.guides.model.Citizenship;
 import ru.bellintegrator.practice.guides.model.Doc;
 import ru.bellintegrator.practice.guides.model.DocUser;
+import ru.bellintegrator.practice.guides.view.DocUserView;
 import ru.bellintegrator.practice.office.dao.OfficeDAO;
 import ru.bellintegrator.practice.office.model.Office;
 import ru.bellintegrator.practice.users.dao.UserDAO;
@@ -25,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -74,9 +76,10 @@ public class UserServiceImpl implements UserService {
         us.setMiddleName(user.middleName);
         us.setPosition(user.position);
 
-        Citizenship citizen = daoCitizenship.loadByCode(user.citizenshipCode);
-
-        us.setCitizenship(citizen);
+        if(user.citizenshipCode != null) {
+            Citizenship citizen = daoCitizenship.loadByCode(user.citizenshipCode);
+            us.setCitizenship(citizen);
+        }
 
         List<User> all = dao.loadByParams(us);
 
@@ -113,20 +116,24 @@ public class UserServiceImpl implements UserService {
         view.officeId = us.getOffice().getId();
         view.firstName = us.getFirstName();
         view.secondName = us.getLastName();
+
+
         view.middleName = us.getMiddleName();
         view.position = us.getPosition();
+
         view.salary = us.getSalary();
+
+
         view.registrationDate = String.valueOf(us.getRegistrationDate());
         view.phone = us.getPhone();
 
+        DocUser docUser = us.getDocUser();
 
-        // По заданию нужно вывести 1 документ, у меня связь М:М. Поэтому беру первую запись.
-        // Если такая реализация ошибочна, могу убрать связь М:М или вывести массив документов
-        Optional <DocUser> first = us.getDocUsers().stream().findFirst();
-        view.docCode = first.get().getDocs().getId();
-        view.docName = first.get().getDocs().getName();
-        view.docNumber = first.get().getDocNumber();
-        view.docDate = String.valueOf(first.get().getDocDate());
+        view.docCode = docUser.getDoc().getId();
+        view.docName = docUser.getDoc().getName();
+        view.docNumber = docUser.getDocNumber();
+        view.docDate = String.valueOf(docUser.getDocDate());
+
 
         Citizenship citiz = us.getCitizenship();
         view.citizenshipCode = citiz.getCode();
@@ -156,14 +163,18 @@ public class UserServiceImpl implements UserService {
         us.setRegistrationDate(getDate(user.registrationDate));
         us.setPhone(user.phone);
 
+
         DocUser docUser = new DocUser();
 
         docUser.setDocDate(getDate(user.docDate));
-
         docUser.setDocNumber(user.docNumber);
 
         Doc doc = daoDoc.loadById(user.docCode);
-        docUser.setDocs(doc);
+        docUser.setDoc(doc);
+
+        docUser.setUser(us);
+
+        us.setDocUser(docUser);
 
 
         Citizenship citizen = daoCitizenship.loadByCode(user.citizenshipCode);
@@ -197,14 +208,20 @@ public class UserServiceImpl implements UserService {
         us.setPhone(user.phone);
 
         // Загрузка документов
-        DocUser docUser = (DocUser) daoDocUser.loadByParams( user.docCode,user.id);
+        DocUserView docUserView = new DocUserView();
+        docUserView.docId = user.docCode;
+        docUserView.userId = user.id;
+
+
+        DocUser docUser = (DocUser) daoDocUser.loadByParams(docUserView);
         docUser.setDocDate(getDate(user.docDate));
         docUser.setDocNumber(user.docNumber);
 
         Doc doc = daoDoc.loadById(user.docCode);
-        docUser.setDocs(doc);
 
-        us.addDocUser(docUser);
+        docUser.setDoc(doc);
+
+        us.setDocUser(docUser);
 
         Citizenship citizen = daoCitizenship.loadByCode(user.citizenshipCode);
         us.setCitizenship(citizen);

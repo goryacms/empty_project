@@ -59,6 +59,8 @@ public class OfficeServiceImpl implements OfficeService {
             view.name = p.getName();
             view.isActive = p.getActive();
 
+            view.organizationName = p.getOrganization().getName();
+
             return view;
         };
 
@@ -135,6 +137,10 @@ public class OfficeServiceImpl implements OfficeService {
     @Transactional
     public OfficeView delete(OfficeView office) {
         this.dao.delete(office.id);
+
+
+        /*Organization org =
+        daoOrg.update();*/
 
         OfficeView view = new OfficeView();
         view.result = "success";

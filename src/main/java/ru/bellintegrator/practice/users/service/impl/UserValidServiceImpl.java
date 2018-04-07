@@ -5,6 +5,8 @@ import ru.bellintegrator.practice.guides.dao.CitizenshipDAO;
 import ru.bellintegrator.practice.guides.dao.DocDAO;
 import ru.bellintegrator.practice.guides.model.Citizenship;
 import ru.bellintegrator.practice.guides.model.Doc;
+import ru.bellintegrator.practice.office.dao.OfficeDAO;
+import ru.bellintegrator.practice.office.model.Office;
 import ru.bellintegrator.practice.users.service.UserValidService;
 import ru.bellintegrator.practice.users.view.UserView;
 import ru.bellintegrator.practice.util.exceptionhandling.ResourceNotValidException;
@@ -19,6 +21,8 @@ public class UserValidServiceImpl implements UserValidService {
 
     private CitizenshipDAO citizDAO;
 
+    private OfficeDAO officeDAO;
+
     private String message;
 
     final static String DATE_FORMAT = "dd.mm.yyyy";
@@ -27,9 +31,10 @@ public class UserValidServiceImpl implements UserValidService {
 
 
 
-    public UserValidServiceImpl(DocDAO docDAO, CitizenshipDAO citizDAO) {
+    public UserValidServiceImpl(DocDAO docDAO, CitizenshipDAO citizDAO, OfficeDAO officeDAO) {
         this.docDAO = docDAO;
         this.citizDAO = citizDAO;
+        this.officeDAO = officeDAO;
     }
 
     @Override
@@ -45,7 +50,7 @@ public class UserValidServiceImpl implements UserValidService {
             message += "Не найден документ. \n";
 
         if(userView.citizenshipCode != null){
-            Citizenship citizen = citizDAO.loadByCode(398L);
+            Citizenship citizen = citizDAO.loadByCode(userView.citizenshipCode);
             if(citizen == null)
                 message += "Не удалось найти гражданство. \n";
         }
@@ -77,7 +82,7 @@ public class UserValidServiceImpl implements UserValidService {
             message += "Не найден документ. \n";
 
         if(userView.citizenshipCode != null){
-            Citizenship citizen = citizDAO.loadByCode(398L);
+            Citizenship citizen = citizDAO.loadByCode(userView.citizenshipCode);
             if(citizen == null)
                 message += "Не удалось найти гражданство. \n";
         }
@@ -100,9 +105,19 @@ public class UserValidServiceImpl implements UserValidService {
 
     @Override
     public void checkList(UserView userView) {
-        message += "";
+        message = "";
         if(userView.officeId == null)
             message += "Не все обязательные поля заполнены. \n";
+
+        Office office = officeDAO.loadById(userView.officeId);
+        if(office == null)
+            message += "Офис не найден. \n";
+
+        if(userView.citizenshipCode != null) {
+            Citizenship citizen = citizDAO.loadByCode(userView.citizenshipCode);
+            if(citizen == null)
+                message += "Не удалось найти гражданство. \n";
+        }
 
         if(message.length() > 0) throw new ResourceNotValidException(message);
     }

@@ -21,31 +21,6 @@ public class Doc {
     @Column(name = "name")
     private String name;
 
-
-
-
-
-
-    @OneToMany(mappedBy = "doc", fetch = FetchType.LAZY)
-    private Set<DocUser> docUsers = new HashSet<DocUser>();
-
-    public Set<DocUser> getDocUsers() {
-        return docUsers;
-    }
-
-    public void setDocUsers(Set<DocUser> docUsers) {
-        this.docUsers = docUsers;
-    }
-
-    public void addDocUser(DocUser docUser) {
-        this.docUsers.add(docUser);
-    }
-
-
-
-
-
-
     public Integer getId() {
         return id;
     }

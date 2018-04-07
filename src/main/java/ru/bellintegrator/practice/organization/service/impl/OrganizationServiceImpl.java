@@ -47,6 +47,8 @@ public class OrganizationServiceImpl implements OrganizationService {
             view.name = p.getName();
             view.isActive = p.getActive();
 
+            view.officesCount = p.getOffices().size();
+
             return view;
         };
 

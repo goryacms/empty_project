@@ -18,6 +18,8 @@ public class OfficeView {
 
     public Boolean isActive;
 
+    public String organizationName;
+
     public String result;
 
     public OfficeView() {

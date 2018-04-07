@@ -1,12 +1,15 @@
 package ru.bellintegrator.practice.guides.dao;
 
 import ru.bellintegrator.practice.guides.model.DocUser;
+import ru.bellintegrator.practice.guides.view.DocUserView;
 
 public interface DocUserDAO {
     /**
      * Получить DocUser по DocUserId
      */
-    DocUser loadById(Integer id);
+    DocUser loadById(Long id);
 
-    Object loadByParams(Integer docId, Long userId);
+    Object loadByParams(DocUserView docUserView);
+
+    Long save(DocUser user);
 }

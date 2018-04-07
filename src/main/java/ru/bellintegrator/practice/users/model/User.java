@@ -63,14 +63,14 @@ public class User {
      */
     @Basic(optional = false)
     @Column(name = "age")
-    private int age;
+    private Integer age;
 
     /**
      * Признак идентификации
      */
     @Basic(optional = false)
     @Column(name = "is_identified")
-    private boolean isIdentified;
+    private Boolean isIdentified;
 
     public Date getRegistrationDate() {
         return registrationDate;
@@ -95,18 +95,9 @@ public class User {
     private Double salary;
 
 
-
-
-
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
-               cascade=CascadeType.ALL, orphanRemoval=true)
-    private Set<DocUser> docUsers = new HashSet<>();
-
-
-
-
-
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user",
+            cascade=CascadeType.ALL, orphanRemoval=true)
+    private DocUser docUser;
 
 
 
@@ -148,6 +139,8 @@ public class User {
         builder.append(getSalary());
         builder.append(";registrationDate:");
         builder.append(getRegistrationDate());
+        builder.append(";docUser:");
+        builder.append(getDocUser());
         builder.append(";office:");
         builder.append(getOffice());
         builder.append(";citizenship:");
@@ -206,19 +199,19 @@ public class User {
         this.phone = phone;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
-    public boolean isIdentified() {
+    public Boolean isIdentified() {
         return isIdentified;
     }
 
-    public void setIdentified(boolean identified) {
+    public void setIdentified(Boolean identified) {
         isIdentified = identified;
     }
 
@@ -238,35 +231,13 @@ public class User {
         this.office = office;
     }
 
-
-
-
-
-    public void addDocUser(DocUser docUser) {
-        this.docUsers.add(docUser);
+    public DocUser getDocUser() {
+        return docUser;
     }
 
-    public void removeAllDocUsers(Set<DocUser> docUsers){
-        this.docUsers.removeAll(docUsers);
+    public void setDocUser(DocUser docUser) {
+        this.docUser = docUser;
     }
-
-    public void removeDocUser(DocUser docUser) {
-        this.docUsers.remove(docUser);
-    }
-
-    public Set<DocUser> getDocUsers() {
-        return docUsers;
-    }
-
-    public void setDocUsers(Set<DocUser> docUsers) {
-        //this.docUsers = docUsers;
-        this.docUsers.clear();
-        if(docUsers != null){
-            this.docUsers.addAll(docUsers);
-        }
-    }
-
-
 
 
     public Citizenship getCitizenship() {
@@ -276,6 +247,5 @@ public class User {
     public void setCitizenship(Citizenship citizenship) {
         this.citizenship = citizenship;
     }
-
 
 }
