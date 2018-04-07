@@ -30,22 +30,25 @@ public class ExceptionResponse   {
         return wrap;
     }
 
-    /*@ExceptionHandler(value = {Exception.class})
-    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    public @ResponseBody Wrapper handleException(final Exception exception) {
-
-        Wrapper wrap = new Wrapper();
-        wrap.setError(exception.getMessage());
-
-        return wrap;
-    }*/
-
     @ExceptionHandler(value = {ResourceInternalException.class})
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public @ResponseBody Wrapper handleInternalException(final ResourceInternalException exception) {
 
         Wrapper wrap = new Wrapper();
         wrap.setError(exception.getMessage());
+
+        return wrap;
+    }
+
+    @ExceptionHandler(value = {RuntimeException.class})
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public @ResponseBody Wrapper handleException(final Exception exception) {
+        String msg = exception.getMessage();
+        if(msg == null)
+            msg = "Возникла ошибка. Обратитесь в службу поддержки";
+
+        Wrapper wrap = new Wrapper();
+        wrap.setError(msg);
 
         return wrap;
     }
