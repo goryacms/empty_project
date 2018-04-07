@@ -34,11 +34,7 @@ public class CitizenshipConrtroller {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/countries", method = RequestMethod.POST)
-    public List<CitizenshipView> citizen() throws Exception {
-        try{
+    public List<CitizenshipView> citizen() {
             return citizenService.all();
-        }catch(ResourceInternalException e){
-            throw new ResourceInternalException("При поиске информации произошла ошибка. Пожалуйста, обратитесь в службу поддержки");
-        }
     }
 }

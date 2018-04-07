@@ -31,13 +31,9 @@ public class UserController  {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public UserView userById(@PathVariable("id") Long id) throws Exception {
-        try{
+    public UserView userById(@PathVariable("id") Long id) {
             UserView usView = userService.loadById(id);
             return usView;
-        }catch(ResourceInternalException e){
-            throw new ResourceInternalException("Во время поиска информации произошла ошибка. Пожалуйста, обратитесь в службу поддержки");
-        }
     }
 
     @ApiOperation(value = "listUser", nickname = "listUser", httpMethod = "POST")
@@ -46,13 +42,9 @@ public class UserController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public List<UserView> users(@RequestBody UserView usView) throws Exception {
-        try{
+    public List<UserView> users(@RequestBody UserView usView) {
             List<UserView> userList = userService.loadByParams(usView);
             return userList;
-        }catch(ResourceInternalException e){
-            throw new ResourceInternalException("Во время сохранения информации произошла ошибка. Пожалуйста, обратитесь в службу поддержки");
-        }
     }
 
 
@@ -62,12 +54,8 @@ public class UserController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/save", method = {POST})
-    public UserView addUser(@RequestBody UserView userView) throws Exception {
-        try{
+    public UserView addUser(@RequestBody UserView userView) {
             return userService.save(userView);
-        }catch(ResourceInternalException e){
-            throw new ResourceInternalException("Во время сохранения информации произошла ошибка. Пожалуйста, обратитесь в службу поддержки");
-        }
     }
 
     @ApiOperation(value = "updateUser", nickname = "updUser", httpMethod = "POST")
@@ -76,12 +64,8 @@ public class UserController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/update", method = {POST})
-    public UserView updUser(@RequestBody UserView userView) throws Exception {
-        try{
+    public UserView updUser(@RequestBody UserView userView) {
             return userService.update(userView);
-        }catch(ResourceInternalException e){
-            throw new ResourceInternalException("Во время обновления информации произошла ошибка. Пожалуйста, обратитесь в службу поддержки");
-        }
     }
 
 
@@ -91,11 +75,7 @@ public class UserController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public UserView delUser(@RequestBody UserView userView) throws Exception {
-        try{
+    public UserView delUser(@RequestBody UserView userView) {
             return userService.delete(userView);
-        }catch(ResourceInternalException e){
-            throw new ResourceInternalException("Во время удаления информации произошла ошибка. Пожалуйста, обратитесь в службу поддержки");
-        }
     }
 }

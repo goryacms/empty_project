@@ -36,13 +36,9 @@ public class RegisterController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/login", method = {POST})
-    public RegisterView loginRegister(@RequestBody RegisterView regView) throws Exception {
-        try{
+    public RegisterView loginRegister(@RequestBody RegisterView regView) {
             RegisterView view = registerService.loadByParams(regView);
             return view;
-        }catch(ResourceInternalException e){
-            throw new ResourceInternalException("Во поиска логина и пароля произошла ошибка. Пожалуйста, обратитесь в службу поддержки");
-        }
     }
 
 
@@ -52,21 +48,13 @@ public class RegisterController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/register", method = {POST})
-    public void addRegister(@RequestBody RegisterView regView) throws Exception {
-        try {
+    public void addRegister(@RequestBody RegisterView regView)  {
             registerService.save(regView);
-        }catch(ResourceInternalException e){
-            throw new ResourceInternalException("При регистрации произошла ошибка. Пожалуйста, обратитесь в службу поддержки или повторите попытку позже");
-        }
     }
 
     @RequestMapping(value = "/activation", method = {GET})
-    public void checkCode(@RequestParam(name = "code", required = true) String activeCode) throws Exception {
-        try{
+    public void checkCode(@RequestParam(name = "code", required = true) String activeCode) {
             registerService.update(activeCode);
-        }catch(ResourceInternalException e){
-            throw new ResourceInternalException("При подтверждении регистрации произошла ошибка. Пожалуйста, обратитесь в службу поддержки ");
-        }
     }
 
 }

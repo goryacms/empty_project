@@ -30,13 +30,9 @@ public class OfficeController  {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public OfficeView officeById(@PathVariable("id") Long id) throws Exception {
-        try{
+    public OfficeView officeById(@PathVariable("id") Long id)  {
             OfficeView officeView = officeService.loadById(id);
             return officeView;
-        }catch(ResourceInternalException e){
-            throw new ResourceInternalException("Во время поиска информации произошла ошибка. Пожалуйста, обратитесь в службу поддержки");
-        }
     }
 
 
@@ -46,13 +42,9 @@ public class OfficeController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public List<OfficeView> offices(@RequestBody OfficeView offView) throws Exception {
-        try{
+    public List<OfficeView> offices(@RequestBody OfficeView offView)  {
             List<OfficeView> officeList  = officeService.loadByParams(offView);
             return officeList;
-        }catch(ResourceInternalException e){
-            throw new ResourceInternalException("Во время поиска информации произошла ошибка. Пожалуйста, обратитесь в службу поддержки");
-        }
     }
 
 
@@ -62,12 +54,8 @@ public class OfficeController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/save", method = {POST})
-    public OfficeView addOffice(@RequestBody OfficeView officeView) throws Exception {
-         try{
+    public OfficeView addOffice(@RequestBody OfficeView officeView)  {
             return officeService.save(officeView);
-        }catch(ResourceInternalException e){
-            throw new ResourceInternalException("Во время сохранения информации произошла ошибка. Пожалуйста, обратитесь в службу поддержки");
-        }
     }
 
     @ApiOperation(value = "updateOffice", nickname = "updOffice", httpMethod = "POST")
@@ -76,12 +64,8 @@ public class OfficeController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/update", method = {POST})
-    public OfficeView updOffice(@RequestBody OfficeView officeView) throws Exception {
-        try{
+    public OfficeView updOffice(@RequestBody OfficeView officeView)  {
             return officeService.update(officeView);
-        }catch(ResourceInternalException e){
-            throw new ResourceInternalException("Во время обновления информации произошла ошибка. Пожалуйста, обратитесь в службу поддержки");
-        }
     }
 
     @ApiOperation(value = "deleteOffice", nickname = "delOffice", httpMethod = "POST")
@@ -90,11 +74,7 @@ public class OfficeController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public OfficeView delOffice(@RequestBody OfficeView officeView) throws Exception {
-        try{
+    public OfficeView delOffice(@RequestBody OfficeView officeView) {
             return officeService.delete(officeView);
-        }catch(ResourceInternalException e){
-            throw new ResourceInternalException("Во время удаления информации произошла ошибка. Пожалуйста, обратитесь в службу поддержки");
-        }
     }
 }

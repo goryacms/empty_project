@@ -34,14 +34,9 @@ public class OrganizationController  {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public OrganizationView organizationById(@PathVariable(value = "id", required = true) Long id) throws Exception {
-        try {
+    public OrganizationView organizationById(@PathVariable(value = "id", required = true) Long id)  {
             OrganizationView orgView = orgService.loadById(id);
             return orgView;
-        }catch(ResourceInternalException e){
-            throw new ResourceInternalException("Во время поиска информации произошла ошибка. Пожалуйста, обратитесь в службу поддержки");
-        }
-
     }
 
     @ApiOperation(value = "listOrganization", nickname = "listOrganization", httpMethod = "POST")
@@ -50,14 +45,9 @@ public class OrganizationController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public List<OrganizationView> organizations(@RequestBody OrganizationView orgView) throws Exception {
-
-        try{
+    public List<OrganizationView> organizations(@RequestBody OrganizationView orgView)  {
             List<OrganizationView> orgList = orgService.loadByParams(orgView);
             return orgList;
-        }catch(ResourceInternalException e){
-            throw new ResourceInternalException("Во время поиска информации произошла ошибка. Пожалуйста, обратитесь в службу поддержки");
-        }
     }
 
 
@@ -67,12 +57,8 @@ public class OrganizationController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/save", method = {POST})
-    public OrganizationView addOrganization(@RequestBody OrganizationView orgView) throws Exception {
-        try{
+    public OrganizationView addOrganization(@RequestBody OrganizationView orgView) {
             return orgService.save(orgView);
-        }catch(ResourceInternalException e){
-            throw new ResourceInternalException("Во время сохранения информации произошла ошибка. Пожалуйста, обратитесь в службу поддержки");
-        }
     }
 
     @ApiOperation(value = "updateOrganization", nickname = "updOrganization", httpMethod = "POST")
@@ -81,12 +67,8 @@ public class OrganizationController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/update", method = {POST})
-    public OrganizationView updOrganization(@RequestBody OrganizationView orgView) throws Exception {
-        try{
+    public OrganizationView updOrganization(@RequestBody OrganizationView orgView) {
             return orgService.update(orgView);
-        }catch(ResourceInternalException e){
-            throw new ResourceInternalException("Во время обновления информации произошла ошибка. Пожалуйста, обратитесь в службу поддержки");
-        }
     }
 
 
@@ -96,11 +78,7 @@ public class OrganizationController  {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public OrganizationView delOrganization(@RequestBody OrganizationView orgView) throws Exception {
-        try{
+    public OrganizationView delOrganization(@RequestBody OrganizationView orgView) {
             return orgService.delete(orgView);
-        }catch(ResourceInternalException e){
-            throw new ResourceInternalException("Во время удаления информации произошла ошибка. Пожалуйста, обратитесь в службу поддержки");
-        }
     }
 }
