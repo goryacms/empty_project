@@ -18,6 +18,7 @@ import ru.bellintegrator.practice.guides.dao.DocUserDAO;
 import ru.bellintegrator.practice.guides.model.Citizenship;
 import ru.bellintegrator.practice.guides.model.Doc;
 import ru.bellintegrator.practice.guides.model.DocUser;
+import ru.bellintegrator.practice.guides.view.DocUserView;
 import ru.bellintegrator.practice.office.dao.OfficeDAO;
 import ru.bellintegrator.practice.office.model.Office;
 import ru.bellintegrator.practice.users.model.User;
@@ -89,11 +90,12 @@ public class UserDAOTest {
         Assert.assertEquals("Али", user.getFirstName());
         Assert.assertEquals("ул. Гагарина, 1-а", user.getOffice().getAddress());
 
-        Optional<DocUser> first = user.getDocUsers().stream().findFirst();
 
-        long docCode = first.get().getDocs().getId();
-        String docName = first.get().getDocs().getName();
-        long docNumber = first.get().getDocNumber();
+        DocUser first = user.getDocUser();
+
+        long docCode = first.getDoc().getId();
+        String docName = first.getDoc().getName();
+        long docNumber = first.getDocNumber();
 
 
 
@@ -115,7 +117,7 @@ public class UserDAOTest {
         us.setMiddleName("Александрович");
         us.setLastName("Шпедт");
         us.setPosition("Драматург");
-        us.setSalary(15000);
+        us.setSalary((double) 15000);
 
         String d1 = "21.10.2012";
         String d2 = "24.12.2011";
@@ -132,16 +134,21 @@ public class UserDAOTest {
         us.setPhone("35-15-90");
 
         // Загрузка документов (Код документа = 21 (паспорт гражданина...) , для user_id = 19)
-        DocUser docUser = (DocUser) docUserDAO.loadByParams( 21,19L);
+        DocUserView docUserView  = new DocUserView();
+        docUserView.userId = 19L;
+        docUserView.docId = 21;
+
+        DocUser docUser = (DocUser) docUserDAO.loadByParams( docUserView);
         docUser.setDocDate(docDt);
         docUser.setDocNumber(12123165115165165L);
 
         // меняю код документа с 21 на 7
         Doc doc = docDAO.loadById(7); // Это же справочник документов, значит берём из базы
 
-        docUser.setDocs(doc);
+        docUser.setDoc(doc);
 
-        us.addDocUser(docUser);
+        //us.addDocUser(docUser);
+        us.setDocUser(docUser);
 
         // Загрузка citizenship
         Citizenship citizen = CitizDAO.loadByCode(398L); // Тоже справочник
@@ -157,15 +164,15 @@ public class UserDAOTest {
         Assert.assertEquals("Иван", us1.getFirstName());
         Assert.assertEquals("Драматург", us1.getPosition());
 
-        Assert.assertEquals(1, us1.getDocUsers().size());
 
 
         // Проверка DocUser
-        Optional<DocUser> first = us1.getDocUsers().stream().findFirst();
 
-        long docCode = first.get().getDocs().getId();
-        String docName = first.get().getDocs().getName();
-        long docNumber = first.get().getDocNumber();
+        DocUser first = us1.getDocUser();
+
+        long docCode = first.getDoc().getId();
+        String docName = first.getDoc().getName();
+        long docNumber = first.getDocNumber();
 
 
         Assert.assertEquals(7L, docCode); // был 21
@@ -175,7 +182,11 @@ public class UserDAOTest {
 
 
         // Проверка изменений в docUser (уже непосредственно из docUserDAO)
-        DocUser docUser2 = (DocUser) docUserDAO.loadByParams( 7,19L);
+        DocUserView docUserView2  = new DocUserView();
+        docUserView2.userId = 19L;
+        docUserView2.docId = 7;
+
+        DocUser docUser2 = (DocUser) docUserDAO.loadByParams( docUserView2);
         long num = docUser2.getDocNumber();
 
         Assert.assertEquals(12123165115165165L, num);
@@ -241,18 +252,9 @@ public class UserDAOTest {
         docUser.setDocNumber(12123165115165165L);
 
         Doc doc = docDAO.loadById(21); // справочник документов, берём из базы
-        docUser.setDocs(doc);
+        docUser.setDoc(doc);
 
-        // второй документ
-        DocUser docUser2 = new DocUser();
-        docUser2.setDocDate(docDt2);
-        docUser2.setDocNumber(10000000000065L);
-
-        Doc doc2 = docDAO.loadById(7);
-        docUser2.setDocs(doc2);
-
-        us.addDocUser(docUser);
-        us.addDocUser(docUser2);
+        us.setDocUser(docUser);
 
         // Загрузка citizenship
         Citizenship citizen = CitizDAO.loadByCode(398L);
@@ -262,7 +264,8 @@ public class UserDAOTest {
 
         Assert.assertEquals(INSERT_COUNT_FROM_DB, userDAO.all().size());
 
-        Assert.assertEquals(2, userDAO.loadById(21L).getDocUsers().size());
     }
+
+
 
 }
