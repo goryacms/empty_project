@@ -1,7 +1,2 @@
-﻿Bell Integrator  учебное задание java
+﻿Rest API приложение на Spring + Hibernate
 =======================
-Репозиторий
--
-git - https://github.com/goryacms/empty_project 
-
-
